@@ -1,5 +1,7 @@
+
 :root {
   --background: #0b0b0c;
+  --surface: #111113;
   --text: #f5f5f5;
   --muted: #a5a5aa;
   --accent: #ed4545;
@@ -13,16 +15,27 @@
 html {
   min-height: 100%;
   background: var(--background);
+  scroll-behavior: smooth;
 }
 
 body {
   min-width: 320px;
   min-height: 100vh;
+  min-height: 100svh;
   margin: 0;
   color: var(--text);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
 }
 
 .page {
@@ -63,10 +76,10 @@ body {
 }
 
 .header-label,
-.eyebrow,
+.footer,
 .status,
-.progress-label,
-.footer {
+.eyebrow,
+.instagram-handle {
   font-family: "Courier New", monospace;
 }
 
@@ -85,9 +98,11 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 100px 0;
+  padding: 88px 0 96px;
   text-align: center;
 }
+
+/* Status de desenvolvimento */
 
 .status {
   display: inline-flex;
@@ -106,15 +121,16 @@ body {
   flex-shrink: 0;
   border-radius: 50%;
   background: var(--accent);
+  box-shadow: 0 0 10px rgb(237 69 69 / 30%);
 }
 
-/* Símbolo da marca */
+/* Símbolo visual */
 
 .symbol {
   display: flex;
   align-items: center;
   gap: 16px;
-  margin: 48px 0 32px;
+  margin: 38px 0 26px;
 }
 
 .symbol span {
@@ -132,7 +148,7 @@ body {
 /* Tipografia */
 
 .eyebrow {
-  margin: 0 0 24px;
+  margin: 0 0 22px;
   color: var(--muted);
   font-size: 11px;
   line-height: 1.8;
@@ -153,7 +169,7 @@ h1 span {
 }
 
 .description {
-  max-width: 510px;
+  max-width: 530px;
   margin: 28px 0 0;
   color: #bdbdc2;
   font-size: 16px;
@@ -161,28 +177,106 @@ h1 span {
   font-weight: 400;
 }
 
-/* Indicador de desenvolvimento */
+/* Nota de desenvolvimento */
 
-.progress-track {
-  width: 220px;
-  height: 2px;
-  margin-top: 42px;
-  overflow: hidden;
-  background: #303034;
+.development-note {
+  display: flex;
+  align-items: stretch;
+  gap: 13px;
+  max-width: 440px;
+  margin-top: 32px;
+  text-align: left;
 }
 
-.progress-bar {
-  width: 36%;
-  height: 100%;
+.development-line {
+  width: 2px;
+  flex-shrink: 0;
   background: var(--accent);
 }
 
-.progress-label {
-  margin: 15px 0 0;
-  color: #929298;
-  font-size: 10px;
+.development-note p {
+  margin: 0;
+  color: #a5a5aa;
+  font-size: 13px;
   line-height: 1.8;
-  letter-spacing: 1.2px;
+}
+
+/* Convite para o Instagram */
+
+.instagram-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: min(100%, 440px);
+  min-height: 88px;
+  margin-top: 30px;
+  padding: 18px 20px;
+  border: 1px solid #353538;
+  border-radius: 3px;
+  background: var(--surface);
+  color: var(--text);
+  text-align: left;
+  text-decoration: none;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.instagram-link:hover {
+  border-color: var(--accent);
+  background: #151113;
+  transform: translateY(-2px);
+}
+
+.instagram-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border: 1px solid #493033;
+  border-radius: 3px;
+  color: var(--accent);
+}
+
+.instagram-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.instagram-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.instagram-copy strong {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.instagram-copy small {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.instagram-arrow {
+  align-self: flex-start;
+  color: var(--accent);
+  font-size: 20px;
+}
+
+.instagram-handle {
+  margin: 17px 0 0;
+  color: #77777e;
+  font-size: 9px;
+  line-height: 1.8;
+  letter-spacing: 1.3px;
 }
 
 /* Rodapé */
@@ -213,7 +307,7 @@ h1 span {
   }
 
   .hero {
-    padding: 85px 0;
+    padding: 76px 0 82px;
   }
 
   h1 {
@@ -251,7 +345,7 @@ h1 span {
   }
 
   .hero {
-    padding: 76px 0 82px;
+    padding: 62px 0 70px;
   }
 
   .status {
@@ -261,37 +355,63 @@ h1 span {
   }
 
   .symbol {
-    margin: 40px 0 28px;
+    margin: 32px 0 23px;
+  }
+
+  .symbol span {
+    width: 30px;
   }
 
   .eyebrow {
     max-width: 300px;
-    margin-bottom: 22px;
+    margin-bottom: 20px;
     font-size: 9px;
-    letter-spacing: 1.2px;
+    letter-spacing: 1.1px;
   }
 
   h1 {
-    font-size: clamp(48px, 11.5vw, 60px);
+    font-size: clamp(46px, 11.5vw, 60px);
     line-height: 1.08;
     letter-spacing: -1.5px;
   }
 
   .description {
-    margin-top: 24px;
+    margin-top: 23px;
     font-size: 14px;
     line-height: 1.85;
   }
 
-  .progress-track {
-    width: 190px;
-    margin-top: 34px;
+  .development-note {
+    margin-top: 26px;
   }
 
-  .progress-label {
-    max-width: 290px;
-    font-size: 9px;
-    letter-spacing: 0.7px;
+  .development-note p {
+    font-size: 12px;
+  }
+
+  .instagram-link {
+    gap: 12px;
+    min-height: 82px;
+    margin-top: 25px;
+    padding: 15px 13px;
+  }
+
+  .instagram-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .instagram-copy strong {
+    font-size: 12px;
+  }
+
+  .instagram-copy small {
+    font-size: 10px;
+  }
+
+  .instagram-handle {
+    font-size: 8px;
+    letter-spacing: 1px;
   }
 
   .footer {
@@ -313,12 +433,40 @@ h1 span {
   }
 
   h1 {
-    font-size: 45px;
+    font-size: 43px;
     letter-spacing: -1px;
+  }
+
+  .instagram-link {
+    gap: 9px;
+    padding: 12px 10px;
+  }
+
+  .instagram-copy strong {
+    font-size: 11px;
+  }
+
+  .instagram-copy small {
+    font-size: 9px;
   }
 
   .footer {
     font-size: 7px;
   }
 }
-```
+
+/* Acessibilidade: respeita a preferência por menos movimento */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
