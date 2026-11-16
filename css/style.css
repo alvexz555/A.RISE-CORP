@@ -468,7 +468,8 @@ h1 span {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
   }
-  
+}
+
 /* =================================
    BOTÃO DE PROJETOS
 ================================= */
@@ -576,6 +577,4 @@ h1 span {
   #projects-toggle::after {
     transition: none;
   }
-}
-
 }
