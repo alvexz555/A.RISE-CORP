@@ -183,12 +183,29 @@
   animation: pix-reveal 650ms cubic-bezier(.2,.8,.2,1) both;
 }
 .pix-reveal-label {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   margin: 0;
-  color: var(--pix-muted);
-  font-size: .75rem;
-  font-weight: 700;
-  letter-spacing: .14em;
+  padding: 9px 15px;
+  border: 1px solid rgb(237 69 69 / 48%);
+  border-radius: 999px;
+  background: linear-gradient(110deg, rgb(237 69 69 / 16%), rgb(237 69 69 / 5%));
+  color: #ff8585;
+  font-size: .76rem;
+  font-weight: 850;
+  letter-spacing: .17em;
+  text-shadow: 0 0 18px rgb(237 69 69 / 25%);
+  box-shadow: 0 0 24px rgb(237 69 69 / 8%), inset 0 0 14px rgb(237 69 69 / 5%);
+}
+.pix-reveal-label::before {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border-radius: 50%;
+  background: #ff6262;
+  box-shadow: 0 0 10px rgb(237 69 69 / 85%);
+  content: "";
 }
 .pix-amount {
   display: block;
@@ -731,13 +748,10 @@
   animation: pix-joke-text-in 800ms 120ms cubic-bezier(.16, 1, .3, 1) both;
 }
 .pix-joke-screen h1 span {
-  color: transparent;
-  background: linear-gradient(100deg, #ff6868 0%, #fff 28%, #ff6868 52%, #c2a4ff 76%, #ff6868 100%);
-  background-size: 240% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: pix-gradient-flow 2.4s linear infinite;
+  color: var(--pix-red);
+  background: none;
+  -webkit-text-fill-color: var(--pix-red);
+  text-shadow: 0 8px 34px rgb(237 69 69 / 28%);
 }
 .pix-joke-screen .pix-description,
 .pix-joke-screen .pix-disclaimer,
