@@ -1,107 +1,142 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0b0b0c">
-
+  <meta name="theme-color" content="#09090b">
+  <meta name="description" content="A.RISE é um ecossistema criativo independente. Conheça projetos, experiências e ideias em construção.">
+  <meta property="og:type" content="website">
   <meta property="og:title" content="A.RISE | Criador de mundos">
-  <meta
-    property="og:description"
-    content="Estamos construindo novas ideias. Acompanhe os bastidores e os próximos projetos da A.RISE pelo Instagram."
-  >
-
+  <meta property="og:description" content="Ideias em construção. Projetos ganhando forma.">
   <title>A.RISE | Criador de mundos</title>
-
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pix-flow.css">
   <script src="js/main.js" defer></script>
 </head>
-
 <body>
-
-  <main class="page">
-
-    <header class="header">
-      <a class="logo" href="./" aria-label="A.RISE, página inicial">
-        A<span>.</span>RISE
-      </a>
-
-      <span class="header-label">
-        ECOSSISTEMA CRIATIVO INDEPENDENTE
-      </span>
+  <main class="pix-page">
+    <header class="pix-header">
+      <a class="pix-logo" href="./" aria-label="A.RISE, página inicial">A<span>.</span>RISE</a>
+      <span class="pix-header-label">UMA EXPERIÊNCIA DIGITAL</span>
     </header>
-    <section class="hero" aria-labelledby="hero-title">
 
-      <p class="eyebrow">
-        IDEIAS EM CONSTRUÇÃO. NOVOS MUNDOS A CAMINHO.
-      </p>
+    <div class="pix-content">
+      <section class="pix-screen" data-pix-screen="intro" aria-labelledby="pix-intro-title">
+        <span class="pix-eyebrow">VOCÊ ACHA QUE ISSO É GRÁTIS?</span>
+        <div class="pix-symbol" aria-hidden="true">R$</div>
+        <h1 id="pix-intro-title">intimação<br><span>financeira.</span></h1>
+        <p class="pix-description">Você deve um valor. Quer descobrir qual é?</p>
+        <p class="pix-disclaimer">Experiência humorística. Nenhuma cobrança será efetivada.</p>
+        <button class="pix-button" type="button" data-pix-start>Descobrir <span aria-hidden="true">→</span></button>
+      </section>
 
-      <h1 id="hero-title">
-        O futuro começa<br>
-        com uma <span>ideia.</span>
-      </h1>
-      <div class="development-note">
+      <section class="pix-screen" data-pix-screen="processing" aria-labelledby="pix-processing-title" aria-hidden="true" hidden>
+        <div class="pix-loader" aria-hidden="true"></div>
+        <span class="pix-eyebrow">AGUARDE UM INSTANTE</span>
+        <h1 id="pix-processing-title">Processando<br><span>carregando valor...</span></h1>
+        <p class="pix-description">Calculando o valor mínimo de cobrança.</p>
+        <p class="pix-disclaimer">Simulação local. Nenhum serviço financeiro está conectado.</p>
+      </section>
+
+      <section class="pix-screen" data-pix-screen="reveal" aria-labelledby="pix-reveal-title" aria-hidden="true" hidden>
+        <span class="pix-eyebrow">RESULTADO DO PROCESSAMENTO</span>
+        <div class="pix-reveal-card">
+          <p class="pix-reveal-label">VALOR A PAGAR</p>
+          <strong class="pix-amount">R$ 1.000.000,00</strong>
+          <span class="pix-fiction-label">VALOR FICTÍCIO</span>
+        </div>
+        <h1 id="pix-reveal-title">CALMA,<br><span>CALOTEIRO!</span></h1>
+        <p class="pix-description">😂 Você não perdeu dinheiro. Acabou de cair numa experiência da A.RISE.</p>
+        <p class="pix-disclaimer">É uma brincadeira. Não houve cobrança, pagamento ou transferência.</p>
+        <button class="pix-button" type="button" data-pix-donation>Continuar <span aria-hidden="true">→</span></button>
+        <button class="pix-text-button" type="button" data-pix-restart>Quero ver de novo</button>
+      </section>
+
+      <section class="pix-screen" data-pix-screen="donation" aria-labelledby="pix-donation-title" aria-hidden="true" hidden>
+        <span class="pix-eyebrow">VOCÊ DECIDE</span>
+        <div class="pix-symbol pix-symbol-small" aria-hidden="true">♡</div>
+        <h1 id="pix-donation-title">Quer apoiar<br><span>os projetos?</span></h1>
+        <p class="pix-description">A brincadeira acabou. Mas, se quiser ajudar a tirar novos projetos do papel, você pode contribuir com qualquer valor pela chave Pix abaixo.</p>
+        <div class="pix-panel">
+          <span class="pix-reveal-label">CHAVE PIX PARA DOAÇÃO</span>
+          <p class="pix-key" data-pix-key-display>Chave Pix ainda não configurada.</p>
+          <button class="pix-button pix-button-secondary" type="button" data-pix-copy>Copiar chave Pix</button>
+          <p class="pix-status" data-pix-status aria-live="polite">A contribuição é totalmente opcional.</p>
+        </div>
+        <button class="pix-button" type="button" data-pix-journey>Continuar <span aria-hidden="true">→</span></button>
+        <p class="pix-small">Você pode continuar sem fazer nenhuma doação.</p>
+      </section>
+
+      <section class="pix-screen" data-pix-screen="journey" aria-labelledby="pix-journey-title" aria-hidden="true" hidden>
+        <span class="pix-eyebrow">APOIE DE OUTRA FORMA</span>
+        <div class="pix-symbol pix-symbol-small" aria-hidden="true">↗</div>
+        <h1 id="pix-journey-title">Acompanhe<br><span>a jornada.</span></h1>
+        <p class="pix-description">Conheça o que estamos construindo, acompanhe os projetos e veja as ideias da A.RISE ganhando forma. Você chegou até aqui sem precisar contribuir financeiramente. Seu interesse também importa.</p>
+        <div class="pix-journey-note">
+          <span class="pix-journey-mark" aria-hidden="true">A.</span>
+          <p><strong>Uma ideia de cada vez.</strong><br>Projetos independentes, experimentos e novos mundos em construção.</p>
+        </div>
+        <button class="pix-button" type="button" data-pix-enter-portfolio>Conhecer o portfólio <span aria-hidden="true">→</span></button>
+        <p class="pix-small">Bem-vindo à A.RISE.</p>
+      </section>
+    </div>
+
+    <footer class="pix-footer">
+      <span>© <span data-current-year>2026</span> A.RISE</span>
+      <span>UMA EXPERIÊNCIA, NENHUMA COBRANÇA.</span>
+    </footer>
+  </main>
+
+  <main class="page portfolio-page" id="portfolio" hidden>
+    <header class="header">
+      <a class="logo" href="./" aria-label="A.RISE, página inicial">A<span>.</span>RISE</a>
+      <span class="header-label">ECOSSISTEMA CRIATIVO INDEPENDENTE</span>
+    </header>
+
+    <section class="hero portfolio-hero" aria-labelledby="portfolio-title">
+      <p class="eyebrow">IDEIAS EM CONSTRUÇÃO. NOVOS MUNDOS A CAMINHO.</p>
+      <h1 id="portfolio-title">O futuro começa<br>com uma <span>ideia.</span></h1>
+      <p class="description">A.RISE é um ecossistema criativo independente dedicado a transformar ideias em projetos, experiências e ferramentas. Exploramos tecnologia, jogos e desenvolvimento por meio de iniciativas próprias.</p>
+      <div class="portfolio-intro">
         <span class="development-line" aria-hidden="true"></span>
+        <p>Este é o espaço para acompanhar o que estamos criando. Alguns projetos já podem ser explorados; outros ainda estão tomando forma.</p>
+      </div>
+    </section>
 
-        <p>
-          estamos construindo tudo por aqui.
-          Enquanto isso, os bastidores continuam e os projetos támbem.
-        </p>
+    <section class="portfolio-projects" aria-labelledby="projects-title">
+      <div class="portfolio-section-heading">
+        <p class="eyebrow">O QUE ESTAMOS CONSTRUINDO</p>
+        <h2 id="projects-title">Projetos<span>.</span></h2>
       </div>
 
-      <a
-        class="instagram-link"
-        href="https://www.instagram.com/alvex.rise/"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Acompanhar os bastidores da A.RISE no Instagram, abre em nova aba"
-      >
-        <span class="instagram-icon" aria-hidden="true">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.7"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
-            <circle cx="12" cy="12" r="4"></circle>
-            <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor"></circle>
-          </svg>
-        </span>
+      <article class="portfolio-card">
+        <div class="portfolio-card-top"><span class="portfolio-tag">GAMES</span><span class="portfolio-status">DEMO DISPONÍVEL</span></div>
+        <h3>ON RED</h3>
+        <p>Um jogo arcade de sobrevivência sobre persistência, adaptação e superação. Enfrente inimigos, obstáculos e chefes em uma experiência construída para desafiar seus reflexos e decisões.</p>
+        <a class="portfolio-link" href="https://github.com/alvexz555/ON-RED" target="_blank" rel="noopener noreferrer">Conhecer o projeto <span aria-hidden="true">↗</span></a>
+      </article>
 
-        <span class="instagram-copy">
-          <strong>Acompanhe a construção</strong>
-          <small>Bastidores, projetos e próximas novidades</small>
-        </span>
+      <article class="portfolio-card">
+        <div class="portfolio-card-top"><span class="portfolio-tag">EXPERIMENTOS</span><span class="portfolio-status">EM DESENVOLVIMENTO</span></div>
+        <h3>HITBOX LAB</h3>
+        <p>Um laboratório interativo para testar colisões, visualizar hitboxes e explorar conceitos fundamentais de interação em jogos.</p>
+        <a class="portfolio-link" href="./projetos/hitbox-lab/">Explorar o laboratório <span aria-hidden="true">↗</span></a>
+      </article>
+    </section>
 
-        <span class="instagram-arrow" aria-hidden="true">↗</span>
-      </a>
-<button
-  type="button"
-  id="projects-toggle"
-  aria-expanded="false"
-  aria-controls="projects"
->
-  PROJETOS
-</button>
-      <p class="instagram-handle">
-        INSTAGRAM OFICIAL · @ALVEX.RISE
-      </p>
-
+    <section class="journey-section" aria-labelledby="journey-section-title">
+      <p class="eyebrow">CONTINUE POR PERTO</p>
+      <h2 id="journey-section-title">A jornada<br>continua<span>.</span></h2>
+      <p>Novas ideias, testes e projetos ainda estão por vir. Acompanhe esta página para descobrir os próximos passos da A.RISE.</p>
+      <a class="portfolio-link" href="#portfolio-title">Voltar ao início <span aria-hidden="true">↑</span></a>
     </section>
 
     <footer class="footer">
       <span>© <span data-current-year>2026</span> A.RISE</span>
-
-      <span class="signature">
-        CRIADOR DE MUNDOS<span>.</span>
-      </span>
+      <span class="signature">CRIADOR DE MUNDOS<span>.</span></span>
     </footer>
-
   </main>
 
+  <div class="pix-impact-overlay" data-pix-impact hidden aria-hidden="true"></div>
 </body>
 </html>
