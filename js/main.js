@@ -13,7 +13,7 @@
   const IMPACT_DURATION = 850;
   const JOKE_REVEAL_DELAY = 3200;
 
-  const screenNames = ["intro", "processing", "reveal", "donation", "journey"];
+  const screenNames = ["intro", "processing", "reveal", "joke", "donation", "journey"];
   const screens = Object.fromEntries(screenNames.map((name) => [
     name,
     document.querySelector(`[data-pix-screen="${name}"]`)
@@ -21,7 +21,6 @@
 
   const startButton = document.querySelector("[data-pix-start]");
   const restartButton = document.querySelector("[data-pix-restart]");
-  const jokeReveal = document.querySelector("[data-pix-joke-reveal]");
   const donationButton = document.querySelector("[data-pix-donation]");
   const journeyButton = document.querySelector("[data-pix-journey]");
   const portfolioButton = document.querySelector("[data-pix-enter-portfolio]");
@@ -52,12 +51,6 @@
 
     if (jokeRevealTimer !== null) window.clearTimeout(jokeRevealTimer);
     jokeRevealTimer = null;
-    if (jokeReveal) {
-      jokeReveal.hidden = true;
-      jokeReveal.setAttribute("aria-hidden", "true");
-      jokeReveal.classList.remove("is-visible");
-    }
-
     Object.entries(screens).forEach(([screenName, screen]) => {
       if (!screen) return;
       const active = screenName === name;
@@ -76,19 +69,23 @@
       }
     }
 
-    if (name === "reveal" && jokeReveal) {
+    if (name === "reveal") {
       jokeRevealTimer = window.setTimeout(() => {
-        jokeReveal.hidden = false;
-        jokeReveal.setAttribute("aria-hidden", "false");
-        requestAnimationFrame(() => jokeReveal.classList.add("is-visible"));
+        showScreen("joke");
+        targetJokeAnimation();
         jokeRevealTimer = null;
       }, JOKE_REVEAL_DELAY);
     }
 
-    const heading = name === "reveal" ? null : target.querySelector("h1");
+    const heading = target.querySelector("h1");
     const focusTarget = heading || target;
     focusTarget.setAttribute("tabindex", "-1");
     focusTarget.focus();
+  }
+
+  function targetJokeAnimation() {
+    const jokeScreen = screens.joke;
+    if (jokeScreen) requestAnimationFrame(() => jokeScreen.classList.add("is-visible"));
   }
 
   function updateProcessingProgress(stepIndex) {
