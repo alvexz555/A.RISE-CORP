@@ -85,11 +85,10 @@
       }, JOKE_REVEAL_DELAY);
     }
 
-    const heading = target.querySelector("h1");
-    if (heading) {
-      heading.setAttribute("tabindex", "-1");
-      heading.focus();
-    }
+    const heading = name === "reveal" ? null : target.querySelector("h1");
+    const focusTarget = heading || target;
+    focusTarget.setAttribute("tabindex", "-1");
+    focusTarget.focus();
   }
 
   function updateProcessingProgress(stepIndex) {
