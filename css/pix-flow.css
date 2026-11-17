@@ -691,3 +691,23 @@
 /* A tela de processamento mantém apenas o console e a barra de progresso */
 .pix-processing-core,
 .pix-animated-dots { display: none !important; }
+
+
+/* Revelação em duas etapas: resultado primeiro, brincadeira depois */
+.pix-joke-reveal {
+  opacity: 0;
+  transform: translateY(18px) scale(.985);
+  transform-origin: center top;
+}
+.pix-joke-reveal.is-visible {
+  animation: pix-joke-arrive 700ms cubic-bezier(.18,.75,.25,1) both;
+}
+@keyframes pix-joke-arrive {
+  0% { opacity: 0; transform: translateY(18px) scale(.985); }
+  65% { opacity: 1; transform: translateY(-3px) scale(1.006); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pix-joke-reveal,
+  .pix-joke-reveal.is-visible { opacity: 1; transform: none; animation: none; }
+}
