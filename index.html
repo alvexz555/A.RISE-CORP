@@ -28,14 +28,30 @@
         <button class="pix-button" type="button" data-pix-start>Descobrir <span aria-hidden="true">→</span></button>
       </section>
 
-      <section class="pix-screen" data-pix-screen="processing" aria-labelledby="pix-processing-title" aria-hidden="true" hidden>
-        <div class="pix-loader" aria-hidden="true"></div>
-        <span class="pix-eyebrow">AGUARDE UM INSTANTE...</span>
-        <h1 id="pix-processing-title">Buscando<br><span>informações...</span></h1>
-        <div class="pix-processing-steps" aria-live="polite">
-          <p>Buscando informações...</p>
-          <p>Calculando valor...</p>
+      <section class="pix-screen pix-processing-screen" data-pix-screen="processing" aria-labelledby="pix-processing-title" aria-hidden="true" hidden>
+        <span class="pix-eyebrow">SISTEMA A.RISE · PROCESSAMENTO</span>
+        <div class="pix-processing-core" aria-hidden="true">
+          <div class="pix-loader"></div>
+          <span class="pix-core-orbit pix-core-orbit-one"></span>
+          <span class="pix-core-orbit pix-core-orbit-two"></span>
+          <span class="pix-core-label">ANALISANDO</span>
         </div>
+        <h1 id="pix-processing-title">Analisando<br><span>sua solicitação...</span></h1>
+        <div class="pix-processing-console" aria-live="polite" aria-atomic="true">
+          <div class="pix-processing-status">
+            <span class="pix-status-dot" aria-hidden="true"></span>
+            <p data-pix-processing-message>Iniciando consulta...</p>
+            <strong data-pix-processing-percent>00%</strong>
+          </div>
+          <div class="pix-progress-track" role="progressbar" aria-label="Progresso da simulação" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-pix-progress>
+            <span data-pix-progress-fill></span>
+          </div>
+          <div class="pix-processing-meta">
+            <span data-pix-processing-step>ETAPA 01 / 05</span>
+            <span>AGUARDE</span>
+          </div>
+        </div>
+        <p class="pix-processing-footnote">Isso pode levar alguns instantes.</p>
       </section>
 
       <section class="pix-screen" data-pix-screen="reveal" aria-labelledby="pix-reveal-title" aria-hidden="true" hidden>
