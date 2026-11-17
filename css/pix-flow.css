@@ -372,3 +372,51 @@
     transition-duration: .01ms !important;
   }
 }
+
+/* Etapas da simulação e revelação humorística */
+.pix-processing-steps {
+  display: grid;
+  gap: 8px;
+  margin: 22px auto 0;
+  color: var(--pix-muted);
+  font-size: .9rem;
+}
+.pix-processing-steps p {
+  margin: 0;
+  opacity: 0;
+  animation: pix-step-in 500ms ease forwards;
+}
+.pix-processing-steps p:nth-child(1) { animation-delay: 450ms; }
+.pix-processing-steps p:nth-child(2) { animation-delay: 1150ms; }
+.pix-humor-label {
+  width: fit-content;
+  margin: 0 auto 18px;
+  color: #fff;
+  font-size: .75rem;
+  font-weight: 850;
+  letter-spacing: .18em;
+  background: linear-gradient(90deg, #ff6464, #f7f0f0, #ff6464, #a78bfa, #ff6464);
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: pix-gradient-flow 3.2s linear infinite;
+}
+.pix-continue-prompt {
+  margin: 24px 0 -14px;
+  color: var(--pix-text);
+  font-size: .9rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+@keyframes pix-step-in {
+  from { opacity: 0; transform: translateY(7px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pix-gradient-flow {
+  to { background-position: 250% center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pix-processing-steps p { opacity: 1; animation: none; }
+  .pix-humor-label { animation: none; }
+}
