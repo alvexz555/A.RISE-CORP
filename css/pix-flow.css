@@ -686,3 +686,8 @@
   .pix-core-orbit-one,
   .pix-core-orbit-two { animation: none; }
 }
+
+
+/* A tela de processamento mantém apenas o console e a barra de progresso */
+.pix-processing-core,
+.pix-animated-dots { display: none !important; }
