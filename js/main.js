@@ -13,7 +13,7 @@
   const IMPACT_DURATION = 850;
   const JOKE_REVEAL_DELAY = 3200;
 
-  const screenNames = ["intro", "processing", "reveal", "joke", "donation", "journey"];
+  const screenNames = ["intro", "processing", "reveal", "joke", "presentation", "donation", "journey"];
   const screens = Object.fromEntries(screenNames.map((name) => [
     name,
     document.querySelector(`[data-pix-screen="${name}"]`)
@@ -21,6 +21,7 @@
 
   const startButton = document.querySelector("[data-pix-start]");
   const restartButton = document.querySelector("[data-pix-restart]");
+  const presentationButton = document.querySelector("[data-pix-presentation]");
   const donationButton = document.querySelector("[data-pix-donation]");
   const journeyButton = document.querySelector("[data-pix-journey]");
   const portfolioButton = document.querySelector("[data-pix-enter-portfolio]");
@@ -204,7 +205,7 @@
 
   function initialize() {
     const required = [
-      ...Object.values(screens), startButton, restartButton, donationButton,
+      ...Object.values(screens), startButton, restartButton, presentationButton, donationButton,
       journeyButton, portfolioButton, copyButton, pixKeyDisplay, pixStatus,
       impactOverlay, experience, portfolio, processingMessage, processingPercent, processingStep, progressBar, progressFill
     ];
@@ -226,6 +227,7 @@
 
     startButton.addEventListener("click", startExperience);
     restartButton.addEventListener("click", restartExperience);
+    presentationButton.addEventListener("click", () => showScreen("presentation"));
     donationButton.addEventListener("click", () => showScreen("donation"));
     journeyButton.addEventListener("click", () => showScreen("journey"));
     portfolioButton.addEventListener("click", openPortfolio);
