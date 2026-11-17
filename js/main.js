@@ -2,7 +2,14 @@
 
 (() => {
   const PIX_KEY = "0fec9f1a-698f-46b9-9a8f-533ed1aaa298";
-  const PROCESSING_DURATION = 1800;
+  const PROCESSING_STEP_DURATION = 950;
+  const PROCESSING_STEPS = [
+    "Iniciando consulta...",
+    "Buscando informações...",
+    "Analisando dados...",
+    "Calculando valor...",
+    "Finalizando consulta..."
+  ];
   const IMPACT_DURATION = 850;
 
   const screenNames = ["intro", "processing", "reveal", "donation", "journey"];
@@ -19,6 +26,11 @@
   const copyButton = document.querySelector("[data-pix-copy]");
   const pixKeyDisplay = document.querySelector("[data-pix-key-display]");
   const pixStatus = document.querySelector("[data-pix-status]");
+  const processingMessage = document.querySelector("[data-pix-processing-message]");
+  const processingPercent = document.querySelector("[data-pix-processing-percent]");
+  const processingStep = document.querySelector("[data-pix-processing-step]");
+  const progressBar = document.querySelector("[data-pix-progress]");
+  const progressFill = document.querySelector("[data-pix-progress-fill]");
   const impactOverlay = document.querySelector("[data-pix-impact]");
   const experience = document.querySelector(".pix-page");
   const portfolio = document.getElementById("portfolio");
@@ -60,18 +72,39 @@
     }
   }
 
+  function updateProcessingProgress(stepIndex) {
+    const percent = Math.round(((stepIndex + 1) / PROCESSING_STEPS.length) * 100);
+    if (processingMessage) processingMessage.textContent = PROCESSING_STEPS[stepIndex];
+    if (processingPercent) processingPercent.textContent = String(percent).padStart(2, "0") + "%";
+    if (processingStep) processingStep.textContent = `ETAPA ${String(stepIndex + 1).padStart(2, "0")} / ${String(PROCESSING_STEPS.length).padStart(2, "0")}`;
+    if (progressBar) progressBar.setAttribute("aria-valuenow", String(percent));
+    if (progressFill) progressFill.style.width = percent + "%";
+  }
+
+  function runProcessingStep(stepIndex = 0) {
+    updateProcessingProgress(stepIndex);
+    processingTimer = window.setTimeout(() => {
+      if (stepIndex + 1 < PROCESSING_STEPS.length) {
+        runProcessingStep(stepIndex + 1);
+        return;
+      }
+      processingTimer = null;
+      isProcessing = false;
+      if (startButton) startButton.disabled = false;
+      showScreen("reveal", true);
+    }, PROCESSING_STEP_DURATION);
+  }
+
   function startExperience() {
     if (isProcessing || !startButton) return;
     isProcessing = true;
     startButton.disabled = true;
+    if (progressFill) progressFill.style.width = "0%";
+    if (progressBar) progressBar.setAttribute("aria-valuenow", "0");
+    if (processingPercent) processingPercent.textContent = "00%";
+    if (processingStep) processingStep.textContent = "ETAPA 00 / 05";
     showScreen("processing");
-
-    processingTimer = window.setTimeout(() => {
-      processingTimer = null;
-      isProcessing = false;
-      startButton.disabled = false;
-      showScreen("reveal", true);
-    }, PROCESSING_DURATION);
+    runProcessingStep(0);
   }
 
   function restartExperience() {
@@ -155,7 +188,7 @@
     const required = [
       ...Object.values(screens), startButton, restartButton, donationButton,
       journeyButton, portfolioButton, copyButton, pixKeyDisplay, pixStatus,
-      impactOverlay, experience, portfolio
+      impactOverlay, experience, portfolio, processingMessage, processingPercent, processingStep, progressBar, progressFill
     ];
 
     const missing = required
