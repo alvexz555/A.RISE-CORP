@@ -11,7 +11,7 @@
     "Finalizando consulta"
   ];
   const IMPACT_DURATION = 850;
-  const JOKE_REVEAL_DELAY = 1500;
+  const JOKE_REVEAL_DELAY = 3200;
 
   const screenNames = ["intro", "processing", "reveal", "donation", "journey"];
   const screens = Object.fromEntries(screenNames.map((name) => [
