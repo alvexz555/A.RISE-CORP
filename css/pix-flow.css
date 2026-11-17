@@ -183,29 +183,20 @@
   animation: pix-reveal 650ms cubic-bezier(.2,.8,.2,1) both;
 }
 .pix-reveal-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0;
-  padding: 9px 15px;
-  border: 1px solid rgb(237 69 69 / 48%);
-  border-radius: 999px;
-  background: linear-gradient(110deg, rgb(237 69 69 / 16%), rgb(237 69 69 / 5%));
-  color: #ff8585;
-  font-size: .76rem;
-  font-weight: 850;
-  letter-spacing: .17em;
-  text-shadow: 0 0 18px rgb(237 69 69 / 25%);
-  box-shadow: 0 0 24px rgb(237 69 69 / 8%), inset 0 0 14px rgb(237 69 69 / 5%);
+  display: block;
+  width: fit-content;
+  margin: 0 auto 12px;
+  padding: 0 0 7px;
+  border-bottom: 1px solid rgb(237 69 69 / 55%);
+  color: #ff7777;
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .22em;
+  line-height: 1;
+  text-shadow: 0 0 16px rgb(237 69 69 / 18%);
 }
 .pix-reveal-label::before {
-  width: 7px;
-  height: 7px;
-  flex: 0 0 7px;
-  border-radius: 50%;
-  background: #ff6262;
-  box-shadow: 0 0 10px rgb(237 69 69 / 85%);
-  content: "";
+  content: none;
 }
 .pix-amount {
   display: block;
