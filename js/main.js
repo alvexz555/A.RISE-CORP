@@ -29,31 +29,39 @@
   let isCopying = false;
 
   function showScreen(name, withImpact = false) {
+    const target = screens[name];
+    if (!target) {
+      console.error(`[A.RISE] Tela não encontrada: ${name}`);
+      return;
+    }
+
     Object.entries(screens).forEach(([screenName, screen]) => {
+      if (!screen) return;
       const active = screenName === name;
       screen.hidden = !active;
       screen.setAttribute("aria-hidden", String(!active));
     });
 
     if (impactTimer !== null) window.clearTimeout(impactTimer);
-    impactOverlay.hidden = !withImpact;
-
-    if (withImpact) {
-      impactTimer = window.setTimeout(() => {
-        impactOverlay.hidden = true;
-        impactTimer = null;
-      }, IMPACT_DURATION);
+    if (impactOverlay) {
+      impactOverlay.hidden = !withImpact;
+      if (withImpact) {
+        impactTimer = window.setTimeout(() => {
+          impactOverlay.hidden = true;
+          impactTimer = null;
+        }, IMPACT_DURATION);
+      }
     }
 
-    const heading = screens[name].querySelector("h1");
+    const heading = target.querySelector("h1");
     if (heading) {
       heading.setAttribute("tabindex", "-1");
-      heading.focus({ preventScroll: true });
+      heading.focus();
     }
   }
 
   function startExperience() {
-    if (isProcessing) return;
+    if (isProcessing || !startButton) return;
     isProcessing = true;
     startButton.disabled = true;
     showScreen("processing");
@@ -70,46 +78,73 @@
     if (processingTimer !== null) window.clearTimeout(processingTimer);
     processingTimer = null;
     isProcessing = false;
-    startButton.disabled = false;
+    if (startButton) startButton.disabled = false;
     showScreen("intro");
   }
 
   function openPortfolio() {
+    if (!experience || !portfolio) return;
     if (processingTimer !== null) window.clearTimeout(processingTimer);
     if (impactTimer !== null) window.clearTimeout(impactTimer);
+    processingTimer = null;
+    impactTimer = null;
     experience.hidden = true;
     portfolio.hidden = false;
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo(0, 0);
     const heading = portfolio.querySelector("h1");
-    if (heading) heading.focus({ preventScroll: true });
+    if (heading) {
+      heading.setAttribute("tabindex", "-1");
+      heading.focus();
+    }
+  }
+
+  function legacyCopy(text) {
+    const input = document.createElement("textarea");
+    input.value = text;
+    input.setAttribute("readonly", "");
+    input.setAttribute("aria-hidden", "true");
+    input.style.position = "fixed";
+    input.style.top = "0";
+    input.style.left = "-9999px";
+    input.style.opacity = "0";
+    document.body.appendChild(input);
+    input.focus();
+    input.select();
+    input.setSelectionRange(0, input.value.length);
+    let copied = false;
+    try {
+      copied = document.execCommand("copy");
+    } finally {
+      input.remove();
+    }
+    return copied;
   }
 
   async function copyPixKey() {
-    if (isCopying) return;
+    if (isCopying || !copyButton || !pixStatus) return;
     isCopying = true;
     copyButton.disabled = true;
 
     try {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(PIX_KEY);
-      } else {
-        const input = document.createElement("textarea");
-        input.value = PIX_KEY;
-        input.setAttribute("readonly", "");
-        input.style.position = "fixed";
-        input.style.opacity = "0";
-        document.body.appendChild(input);
-        input.select();
-        const copied = document.execCommand("copy");
-        input.remove();
-        if (!copied) throw new Error("Falha ao copiar a chave.");
+      let copied = false;
+
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+        try {
+          await navigator.clipboard.writeText(PIX_KEY);
+          copied = true;
+        } catch (clipboardError) {
+          console.warn("[A.RISE] Clipboard API indisponível; tentando método alternativo.", clipboardError);
+        }
       }
+
+      if (!copied) copied = legacyCopy(PIX_KEY);
+      if (!copied) throw new Error("O navegador não permitiu copiar automaticamente.");
 
       pixStatus.textContent = "Chave Pix copiada. Obrigado pelo apoio!";
       copyButton.textContent = "Chave copiada ✓";
     } catch (error) {
       console.error("[A.RISE] Não foi possível copiar a chave Pix:", error);
-      pixStatus.textContent = "Não foi possível copiar automaticamente. Selecione a chave acima e copie manualmente.";
+      pixStatus.textContent = "Não foi possível copiar automaticamente. Toque e segure a chave acima para copiá-la.";
     } finally {
       isCopying = false;
       copyButton.disabled = false;
@@ -123,8 +158,12 @@
       impactOverlay, experience, portfolio
     ];
 
-    if (required.some((element) => !element)) {
-      console.error("[A.RISE] Estrutura da experiência incompleta.");
+    const missing = required
+      .map((element, index) => element ? null : index)
+      .filter((index) => index !== null);
+
+    if (missing.length) {
+      console.error("[A.RISE] Estrutura incompleta. Verifique os elementos da experiência.", missing);
       return;
     }
 
@@ -133,6 +172,7 @@
     });
 
     pixKeyDisplay.textContent = PIX_KEY;
+
     startButton.addEventListener("click", startExperience);
     restartButton.addEventListener("click", restartExperience);
     donationButton.addEventListener("click", () => showScreen("donation"));
@@ -141,6 +181,7 @@
     copyButton.addEventListener("click", copyPixKey);
 
     showScreen("intro");
+    console.info("[A.RISE] Experiência Pix inicializada.");
   }
 
   if (document.readyState === "loading") {
