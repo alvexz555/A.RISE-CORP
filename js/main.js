@@ -4,11 +4,11 @@
   const PIX_KEY = "0fec9f1a-698f-46b9-9a8f-533ed1aaa298";
   const PROCESSING_STEP_DURATION = 950;
   const PROCESSING_STEPS = [
-    "Iniciando consulta...",
-    "Buscando informações...",
-    "Analisando dados...",
-    "Calculando valor...",
-    "Finalizando consulta..."
+    "Iniciando consulta",
+    "Buscando informações",
+    "Analisando dados",
+    "Calculando valor",
+    "Finalizando consulta"
   ];
   const IMPACT_DURATION = 850;
 
