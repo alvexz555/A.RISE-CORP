@@ -781,3 +781,106 @@
     animation: none;
   }
 }
+
+
+/* Apresentação institucional antes da área Pix */
+.pix-presentation-screen {
+  width: min(100%, 690px);
+  padding: 12px 0 20px;
+}
+.pix-presentation-mark {
+  margin: 0 auto 22px;
+  color: var(--pix-text);
+  font-size: .94rem;
+  font-weight: 900;
+  letter-spacing: -.06em;
+}
+.pix-presentation-mark span { color: var(--pix-red); }
+.pix-presentation-screen h1 {
+  font-size: clamp(2.65rem, 7vw, 4.65rem);
+}
+.pix-presentation-screen .pix-description {
+  max-width: 570px;
+  margin-top: 19px;
+}
+.pix-presentation-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 30px 0 34px;
+  text-align: left;
+}
+.pix-presentation-pillar {
+  min-height: 104px;
+  padding: 15px 14px;
+  border: 1px solid var(--pix-border);
+  border-radius: 8px;
+  background: linear-gradient(145deg, rgb(255 255 255 / 3%), rgb(255 255 255 / 1%));
+}
+.pix-presentation-pillar span,
+.pix-presentation-kicker {
+  color: #ff7777;
+  font: 750 .62rem "Courier New", monospace;
+  letter-spacing: .12em;
+}
+.pix-presentation-pillar strong {
+  display: block;
+  margin-top: 12px;
+  color: var(--pix-text);
+  font-size: .82rem;
+  line-height: 1.45;
+}
+.pix-presentation-projects { text-align: left; }
+.pix-presentation-kicker { margin: 0 0 12px; }
+.pix-presentation-project {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 9px;
+  padding: 15px 16px;
+  border: 1px solid var(--pix-border);
+  border-radius: 8px;
+  background: rgb(255 255 255 / 2%);
+  color: inherit;
+  text-align: left;
+  text-decoration: none;
+  transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
+}
+.pix-presentation-project:hover {
+  transform: translateY(-2px);
+  border-color: rgb(237 69 69 / 65%);
+  background: rgb(237 69 69 / 4%);
+}
+.pix-project-number {
+  color: #777780;
+  font: 700 .75rem "Courier New", monospace;
+}
+.pix-project-copy { display: grid; flex: 1; gap: 4px; min-width: 0; }
+.pix-project-copy small {
+  color: #ff7777;
+  font: 650 .57rem "Courier New", monospace;
+  letter-spacing: .1em;
+}
+.pix-project-copy strong { color: var(--pix-text); font-size: .95rem; letter-spacing: .02em; }
+.pix-project-copy > span { color: var(--pix-muted); font-size: .77rem; line-height: 1.5; }
+.pix-project-arrow { color: var(--pix-red); font-size: 1.15rem; }
+.pix-presentation-closing {
+  margin: 27px 0 0;
+  color: var(--pix-text);
+  font-size: .95rem;
+  font-weight: 700;
+}
+.pix-presentation-screen .pix-button { margin-top: 21px; }
+.pix-presentation-screen .pix-small { max-width: 400px; line-height: 1.6; }
+@media (max-width: 600px) {
+  .pix-presentation-screen { padding-top: 0; }
+  .pix-presentation-pillars { grid-template-columns: 1fr; gap: 8px; margin: 24px 0 28px; }
+  .pix-presentation-pillar { min-height: 0; padding: 12px 14px; }
+  .pix-presentation-pillar strong { margin-top: 6px; }
+  .pix-presentation-project { gap: 11px; padding: 13px 12px; }
+  .pix-project-copy > span { font-size: .72rem; }
+  .pix-presentation-screen .pix-button { width: min(100%, 320px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pix-presentation-project { transition: none; }
+}
