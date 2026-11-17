@@ -123,7 +123,9 @@
   background: var(--pix-red);
   color: #fff;
   cursor: pointer;
-  font: 750 .92rem inherit;
+  font-family: inherit;
+  font-size: .92rem;
+  font-weight: 750;
   text-decoration: none;
   transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
