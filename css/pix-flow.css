@@ -420,3 +420,63 @@
   .pix-processing-steps p { opacity: 1; animation: none; }
   .pix-humor-label { animation: none; }
 }
+
+
+/* Refinamento da primeira tela */
+.pix-screen[data-pix-screen="intro"] {
+  position: relative;
+  width: min(100%, 760px);
+  padding: clamp(22px, 5vw, 44px) 0;
+}
+.pix-screen[data-pix-screen="intro"]::before {
+  display: block;
+  width: 46px;
+  height: 3px;
+  margin: 0 auto 30px;
+  border-radius: 99px;
+  background: var(--pix-red);
+  box-shadow: 0 0 24px rgb(237 69 69 / 38%);
+  content: "";
+}
+.pix-screen[data-pix-screen="intro"] .pix-eyebrow {
+  margin-bottom: 26px;
+  color: #c7a0a0;
+}
+.pix-screen[data-pix-screen="intro"] h1 {
+  font-size: clamp(3.2rem, 9vw, 6.2rem);
+  letter-spacing: -.085em;
+  line-height: .98;
+}
+.pix-screen[data-pix-screen="intro"] h1 span {
+  display: inline-block;
+  margin-top: 5px;
+  color: var(--pix-red);
+  text-shadow: 0 8px 38px rgb(237 69 69 / 16%);
+}
+.pix-screen[data-pix-screen="intro"] .pix-description {
+  max-width: 420px;
+  margin-top: 26px;
+  color: #b8b8c0;
+  font-size: clamp(1rem, 2.4vw, 1.12rem);
+}
+.pix-screen[data-pix-screen="intro"] .pix-button {
+  min-width: 190px;
+  margin-top: 36px;
+  box-shadow: 0 10px 34px rgb(237 69 69 / 16%);
+}
+.pix-button:focus-visible,
+.pix-text-button:focus-visible {
+  outline: 2px solid var(--pix-red);
+  outline-offset: 4px;
+}
+@media (max-width: 600px) {
+  .pix-screen[data-pix-screen="intro"] {
+    padding-block: 18px;
+  }
+  .pix-screen[data-pix-screen="intro"]::before {
+    margin-bottom: 25px;
+  }
+  .pix-screen[data-pix-screen="intro"] .pix-button {
+    width: min(100%, 320px);
+  }
+}
