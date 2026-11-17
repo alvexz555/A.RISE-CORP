@@ -11,6 +11,7 @@
     "Finalizando consulta"
   ];
   const IMPACT_DURATION = 850;
+  const JOKE_REVEAL_DELAY = 1500;
 
   const screenNames = ["intro", "processing", "reveal", "donation", "journey"];
   const screens = Object.fromEntries(screenNames.map((name) => [
@@ -20,6 +21,7 @@
 
   const startButton = document.querySelector("[data-pix-start]");
   const restartButton = document.querySelector("[data-pix-restart]");
+  const jokeReveal = document.querySelector("[data-pix-joke-reveal]");
   const donationButton = document.querySelector("[data-pix-donation]");
   const journeyButton = document.querySelector("[data-pix-journey]");
   const portfolioButton = document.querySelector("[data-pix-enter-portfolio]");
@@ -37,6 +39,7 @@
 
   let processingTimer = null;
   let impactTimer = null;
+  let jokeRevealTimer = null;
   let isProcessing = false;
   let isCopying = false;
 
@@ -45,6 +48,14 @@
     if (!target) {
       console.error(`[A.RISE] Tela não encontrada: ${name}`);
       return;
+    }
+
+    if (jokeRevealTimer !== null) window.clearTimeout(jokeRevealTimer);
+    jokeRevealTimer = null;
+    if (jokeReveal) {
+      jokeReveal.hidden = true;
+      jokeReveal.setAttribute("aria-hidden", "true");
+      jokeReveal.classList.remove("is-visible");
     }
 
     Object.entries(screens).forEach(([screenName, screen]) => {
@@ -63,6 +74,15 @@
           impactTimer = null;
         }, IMPACT_DURATION);
       }
+    }
+
+    if (name === "reveal" && jokeReveal) {
+      jokeRevealTimer = window.setTimeout(() => {
+        jokeReveal.hidden = false;
+        jokeReveal.setAttribute("aria-hidden", "false");
+        requestAnimationFrame(() => jokeReveal.classList.add("is-visible"));
+        jokeRevealTimer = null;
+      }, JOKE_REVEAL_DELAY);
     }
 
     const heading = target.querySelector("h1");
@@ -119,7 +139,9 @@
     if (!experience || !portfolio) return;
     if (processingTimer !== null) window.clearTimeout(processingTimer);
     if (impactTimer !== null) window.clearTimeout(impactTimer);
+    if (jokeRevealTimer !== null) window.clearTimeout(jokeRevealTimer);
     processingTimer = null;
+    jokeRevealTimer = null;
     impactTimer = null;
     experience.hidden = true;
     portfolio.hidden = false;
