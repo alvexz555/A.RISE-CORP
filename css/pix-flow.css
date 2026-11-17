@@ -694,12 +694,12 @@
 
 
 /* Revelação em duas etapas: resultado primeiro, brincadeira depois */
-.pix-joke-reveal {
+.pix-joke-screen {
   opacity: 0;
   transform: translateY(18px) scale(.985);
   transform-origin: center top;
 }
-.pix-joke-reveal.is-visible {
+.pix-joke-screen.is-visible {
   animation: pix-joke-arrive 700ms cubic-bezier(.18,.75,.25,1) both;
 }
 @keyframes pix-joke-arrive {
@@ -708,29 +708,29 @@
   100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .pix-joke-reveal,
-  .pix-joke-reveal.is-visible { opacity: 1; transform: none; animation: none; }
+  .pix-joke-screen,
+  .pix-joke-screen.is-visible { opacity: 1; transform: none; animation: none; }
 }
 
 
 /* Revelação da brincadeira: entrada evidente e destaque em degradê */
-.pix-joke-reveal {
+.pix-joke-screen {
   opacity: 0;
   transform: translateY(28px) scale(.97);
   filter: blur(7px);
   transform-origin: center top;
   will-change: opacity, transform, filter;
 }
-.pix-joke-reveal.is-visible {
+.pix-joke-screen.is-visible {
   animation: pix-joke-arrive 1050ms cubic-bezier(.16, 1, .3, 1) both;
 }
-.pix-joke-reveal .pix-humor-label {
+.pix-joke-screen .pix-humor-label {
   animation: pix-gradient-flow 2.2s linear infinite, pix-joke-text-in 650ms ease both;
 }
-.pix-joke-reveal h1 {
+.pix-joke-screen h1 {
   animation: pix-joke-text-in 800ms 120ms cubic-bezier(.16, 1, .3, 1) both;
 }
-.pix-joke-reveal h1 span {
+.pix-joke-screen h1 span {
   color: transparent;
   background: linear-gradient(100deg, #ff6868 0%, #fff 28%, #ff6868 52%, #c2a4ff 76%, #ff6868 100%);
   background-size: 240% auto;
@@ -739,18 +739,18 @@
   -webkit-text-fill-color: transparent;
   animation: pix-gradient-flow 2.4s linear infinite;
 }
-.pix-joke-reveal .pix-description,
-.pix-joke-reveal .pix-disclaimer,
-.pix-joke-reveal .pix-continue-prompt,
-.pix-joke-reveal [data-pix-donation],
-.pix-joke-reveal [data-pix-restart] {
+.pix-joke-screen .pix-description,
+.pix-joke-screen .pix-disclaimer,
+.pix-joke-screen .pix-continue-prompt,
+.pix-joke-screen [data-pix-donation],
+.pix-joke-screen [data-pix-restart] {
   animation: pix-joke-text-in 650ms both;
 }
-.pix-joke-reveal .pix-description { animation-delay: 260ms; }
-.pix-joke-reveal .pix-disclaimer { animation-delay: 360ms; }
-.pix-joke-reveal .pix-continue-prompt { animation-delay: 440ms; }
-.pix-joke-reveal [data-pix-donation] { animation-delay: 520ms; }
-.pix-joke-reveal [data-pix-restart] { animation-delay: 600ms; }
+.pix-joke-screen .pix-description { animation-delay: 260ms; }
+.pix-joke-screen .pix-disclaimer { animation-delay: 360ms; }
+.pix-joke-screen .pix-continue-prompt { animation-delay: 440ms; }
+.pix-joke-screen [data-pix-donation] { animation-delay: 520ms; }
+.pix-joke-screen [data-pix-restart] { animation-delay: 600ms; }
 @keyframes pix-joke-arrive {
   0% { opacity: 0; transform: translateY(28px) scale(.97); filter: blur(7px); }
   65% { opacity: 1; transform: translateY(-3px) scale(1.008); filter: blur(0); }
@@ -761,15 +761,15 @@
   to { opacity: 1; transform: translateY(0); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .pix-joke-reveal,
-  .pix-joke-reveal.is-visible,
-  .pix-joke-reveal h1,
-  .pix-joke-reveal .pix-humor-label,
-  .pix-joke-reveal .pix-description,
-  .pix-joke-reveal .pix-disclaimer,
-  .pix-joke-reveal .pix-continue-prompt,
-  .pix-joke-reveal [data-pix-donation],
-  .pix-joke-reveal [data-pix-restart] {
+  .pix-joke-screen,
+  .pix-joke-screen.is-visible,
+  .pix-joke-screen h1,
+  .pix-joke-screen .pix-humor-label,
+  .pix-joke-screen .pix-description,
+  .pix-joke-screen .pix-disclaimer,
+  .pix-joke-screen .pix-continue-prompt,
+  .pix-joke-screen [data-pix-donation],
+  .pix-joke-screen [data-pix-restart] {
     opacity: 1;
     transform: none;
     filter: none;
