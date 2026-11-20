@@ -1,1 +1,65 @@
-
+:root {
+    color-scheme: dark;
+    --bg: #09090b;
+    --panel: #111114;
+    --panel-soft: #17171b;
+    --line: #29292f;
+    --text: #f4f4f5;
+    --muted: #92929c;
+    --red: #ff3b45;
+    --blue: #4aa8ff;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--text); }
+button, select { font: inherit; }
+.topbar, footer { display: flex; align-items: center; justify-content: space-between; padding: 20px clamp(18px, 5vw, 64px); border-bottom: 1px solid var(--line); }
+.brand { color: var(--text); font-weight: 900; letter-spacing: .12em; text-decoration: none; }
+.brand span { color: var(--red); }
+.version, footer { color: var(--muted); font-size: .7rem; letter-spacing: .13em; }
+.page { width: min(1120px, calc(100% - 36px)); margin: 0 auto; padding: 62px 0 76px; }
+.intro { margin-bottom: 38px; }
+.eyebrow { margin: 0 0 10px; color: var(--red); font-size: .68rem; font-weight: 800; letter-spacing: .18em; }
+h1 { margin: 0; font-size: clamp(2.8rem, 8vw, 5.6rem); line-height: .98; letter-spacing: -.075em; }
+h1 span { color: var(--red); }
+.description { margin: 16px 0 0; color: var(--muted); font-size: 1rem; }
+.workspace { padding: clamp(16px, 3vw, 28px); border: 1px solid var(--line); border-radius: 16px; background: var(--panel); }
+.workspace-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+.workspace-heading h2, .help-panel h2 { margin: 0; font-size: 1.15rem; letter-spacing: -.025em; }
+.reset-button { padding: 10px 14px; border: 1px solid #3a3a42; border-radius: 8px; background: #1b1b20; color: var(--text); cursor: pointer; font-size: .8rem; }
+.reset-button:hover { border-color: var(--red); }
+.canvas-wrap { overflow: hidden; border: 1px solid #303039; border-radius: 10px; background: #0c0c10; }
+canvas { display: block; width: 100%; height: auto; outline: none; }
+canvas:focus-visible { box-shadow: inset 0 0 0 2px var(--red); }
+.readout { display: flex; align-items: center; gap: 13px; margin-top: 16px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 10px; background: #0d0d10; }
+.status-dot { width: 10px; height: 10px; flex: 0 0 auto; border-radius: 50%; background: #777780; }
+.readout strong { font-size: .78rem; letter-spacing: .1em; }
+.readout p { margin: 4px 0 0; color: var(--muted); font-size: .8rem; }
+.readout[data-state="hit"] { border-color: rgba(255, 59, 69, .55); }
+.readout[data-state="hit"] .status-dot { background: var(--red); box-shadow: 0 0 14px rgba(255, 59, 69, .7); }
+.readout[data-state="clear"] .status-dot { background: #55c98a; }
+.object-panel { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 16px; }
+.object-card, .help-panel { padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+.object-title { display: flex; align-items: center; gap: 9px; margin-bottom: 18px; }
+.object-title h3 { margin: 0; font-size: 1rem; }
+.object-title kbd { margin-left: auto; }
+.object-marker { width: 10px; height: 10px; border-radius: 3px; }
+.marker-a { background: var(--red); }
+.marker-b { background: var(--blue); }
+.object-card label { display: block; margin-bottom: 8px; color: var(--muted); font-size: .75rem; }
+.object-card select { width: 100%; padding: 11px 12px; border: 1px solid #36363e; border-radius: 8px; background: #0c0c10; color: var(--text); }
+.object-card p { margin: 12px 0 0; color: var(--muted); font-size: .78rem; }
+.help-panel { margin-top: 16px; }
+.help-panel p { margin: 10px 0 0; color: var(--muted); font-size: .85rem; line-height: 1.7; }
+kbd { display: inline-block; padding: 4px 7px; border: 1px solid #3a3a42; border-radius: 5px; background: #202026; color: #dddde2; font: 600 .68rem ui-monospace, monospace; }
+footer { border-top: 1px solid var(--line); border-bottom: 0; }
+footer span:first-child { color: var(--text); font-weight: 800; }
+@media (max-width: 620px) {
+    .topbar { padding: 17px 18px; }
+    .version { font-size: .58rem; }
+    .page { padding-top: 42px; }
+    .object-panel { grid-template-columns: 1fr; }
+    .workspace-heading { align-items: flex-start; flex-direction: column; }
+    .reset-button { width: 100%; }
+    footer { font-size: .58rem; }
+}
