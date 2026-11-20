@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#09090b">
-    <title>HITBOX LAB | A.RISE</title>
+    <title>HIT LAB | A.RISE</title>
     <link rel="stylesheet" href="style.css">
     <script src="game.js" defer></script>
 </head>
@@ -17,7 +17,7 @@
     <main class="page">
         <section class="intro">
             <p class="eyebrow">LABORATÓRIO DE FÍSICA 2D</p>
-            <h1>HITBOX <span>LAB</span></h1>
+            <h1>HIT <span>LAB</span></h1>
             <p class="description">Experimente formas, movimento e detecção de colisão em tempo real.</p>
         </section>
 
@@ -32,7 +32,7 @@
 
             <div class="canvas-wrap">
                 <canvas id="lab-canvas" width="900" height="500" tabindex="0"
-                    aria-label="Área de simulação 2D. Objeto A é controlado por WASD e objeto B pelas setas.">
+                    aria-label="Área de simulação 2D. Objeto A é controlado por WASD e objeto B pelas setas ou controles de toque.">
                     Seu navegador não oferece suporte ao elemento canvas.
                 </canvas>
             </div>
@@ -54,7 +54,15 @@
                     <option value="rect">Retângulo</option>
                     <option value="circle">Círculo</option>
                 </select>
-                <p>Movimente o objeto A com W, A, S e D.</p>
+                <p>Teclado: W, A, S, D. Celular: use o direcional abaixo.</p>
+                <div class="touch-pad" aria-label="Controles de toque do objeto A">
+                    <button type="button" data-key="KeyW" aria-label="Objeto A para cima">▲</button>
+                    <div class="touch-pad-row">
+                        <button type="button" data-key="KeyA" aria-label="Objeto A para esquerda">◀</button>
+                        <button type="button" data-key="KeyS" aria-label="Objeto A para baixo">▼</button>
+                        <button type="button" data-key="KeyD" aria-label="Objeto A para direita">▶</button>
+                    </div>
+                </div>
             </article>
 
             <article class="object-card object-b-card">
@@ -64,16 +72,24 @@
                     <option value="circle">Círculo</option>
                     <option value="rect">Retângulo</option>
                 </select>
-                <p>Movimente o objeto B com as setas do teclado.</p>
+                <p>Teclado: setas. Celular: use o direcional abaixo.</p>
+                <div class="touch-pad" aria-label="Controles de toque do objeto B">
+                    <button type="button" data-key="ArrowUp" aria-label="Objeto B para cima">▲</button>
+                    <div class="touch-pad-row">
+                        <button type="button" data-key="ArrowLeft" aria-label="Objeto B para esquerda">◀</button>
+                        <button type="button" data-key="ArrowDown" aria-label="Objeto B para baixo">▼</button>
+                        <button type="button" data-key="ArrowRight" aria-label="Objeto B para direita">▶</button>
+                    </div>
+                </div>
             </article>
         </section>
 
         <section class="help-panel">
             <h2>Controles</h2>
-            <p><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> movimentam o objeto A. As <kbd>setas</kbd> movimentam o objeto B. Você também pode alterar o formato de cada hitbox durante a simulação.</p>
+            <p>No computador, use WASD para o objeto A e as setas para o objeto B. No celular, pressione e segure os direcionais de cada objeto. Você também pode alterar o formato das hitboxes durante a simulação.</p>
         </section>
     </main>
 
-    <footer><span>HITBOX LAB</span><span>UM EXPERIMENTO A.RISE</span></footer>
+    <footer><span>HIT LAB</span><span>UM EXPERIMENTO A.RISE</span></footer>
 </body>
 </html>
