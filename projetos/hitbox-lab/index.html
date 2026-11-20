@@ -3,38 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HITLAB | Collision Test</title>
+    <meta name="theme-color" content="#09090b">
+    <title>HITBOX LAB | A.RISE</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="game.js" defer></script>
 </head>
-
 <body>
-
-    <header>
-        <h1>HITLAB</h1>
-        <p>Laboratório de colisões e hitboxes</p>
+    <header class="topbar">
+        <a class="brand" href="../../index.html" aria-label="A.RISE, voltar ao portfólio">A.RISE<span>/LAB</span></a>
+        <span class="version">MÓDULO 01 · COLLISION CORE</span>
     </header>
 
-    <main>
-        <section id="laboratory">
-            <h2>Área de testes</h2>
+    <main class="page">
+        <section class="intro">
+            <p class="eyebrow">LABORATÓRIO DE FÍSICA 2D</p>
+            <h1>HITBOX <span>LAB</span></h1>
+            <p class="description">Experimente formas, movimento e detecção de colisão em tempo real.</p>
+        </section>
 
-            <div id="object-a">
-                OBJETO A
+        <section class="workspace" aria-labelledby="workspace-title">
+            <div class="workspace-heading">
+                <div>
+                    <p class="eyebrow">AMBIENTE DE SIMULAÇÃO</p>
+                    <h2 id="workspace-title">Área de testes</h2>
+                </div>
+                <button id="reset-button" class="reset-button" type="button">Reiniciar posições</button>
             </div>
 
-            <div id="object-b">
-                OBJETO B
+            <div class="canvas-wrap">
+                <canvas id="lab-canvas" width="900" height="500" tabindex="0"
+                    aria-label="Área de simulação 2D. Objeto A é controlado por WASD e objeto B pelas setas.">
+                    Seu navegador não oferece suporte ao elemento canvas.
+                </canvas>
+            </div>
+
+            <div class="readout" id="collision-readout" data-state="idle" aria-live="polite">
+                <span class="status-dot" aria-hidden="true"></span>
+                <div>
+                    <strong id="collision-title">SEM COLISÃO</strong>
+                    <p id="collision-detail">Mova os objetos para testar a detecção.</p>
+                </div>
             </div>
         </section>
 
-        <section id="results">
-            <h2>Resultado da colisão</h2>
-            <p id="collision-status">Aguardando teste...</p>
+        <section class="object-panel" aria-label="Configuração dos objetos">
+            <article class="object-card object-a-card">
+                <div class="object-title"><span class="object-marker marker-a"></span><h3>Objeto A</h3><kbd>W A S D</kbd></div>
+                <label for="shape-a">Formato da hitbox</label>
+                <select id="shape-a">
+                    <option value="rect">Retângulo</option>
+                    <option value="circle">Círculo</option>
+                </select>
+                <p>Movimente o objeto A com W, A, S e D.</p>
+            </article>
+
+            <article class="object-card object-b-card">
+                <div class="object-title"><span class="object-marker marker-b"></span><h3>Objeto B</h3><kbd>↑ ← ↓ →</kbd></div>
+                <label for="shape-b">Formato da hitbox</label>
+                <select id="shape-b">
+                    <option value="circle">Círculo</option>
+                    <option value="rect">Retângulo</option>
+                </select>
+                <p>Movimente o objeto B com as setas do teclado.</p>
+            </article>
+        </section>
+
+        <section class="help-panel">
+            <h2>Controles</h2>
+            <p><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> movimentam o objeto A. As <kbd>setas</kbd> movimentam o objeto B. Você também pode alterar o formato de cada hitbox durante a simulação.</p>
         </section>
     </main>
 
-    <footer>
-        <p>HITLAB — A.RISE</p>
-    </footer>
-
+    <footer><span>HITBOX LAB</span><span>UM EXPERIMENTO A.RISE</span></footer>
 </body>
 </html>
