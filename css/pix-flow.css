@@ -938,3 +938,128 @@
   .pix-page [data-pix-screen="journey"] .instagram-copy strong { font-size: .8rem; }
   .pix-page [data-pix-screen="journey"] .instagram-copy small { font-size: .68rem; }
 }
+
+
+/* Refinamento visual da apresentação institucional, sem alterar o conteúdo */
+.pix-presentation-screen {
+  width: min(100%, 650px);
+  padding: 8px 0 16px;
+}
+.pix-presentation-screen > .pix-eyebrow {
+  margin-bottom: 20px;
+}
+.pix-presentation-screen h1 {
+  font-size: clamp(3rem, 8vw, 5.1rem);
+  letter-spacing: -.085em;
+  line-height: .98;
+}
+.pix-presentation-screen h1 span {
+  display: inline-block;
+  margin-top: 4px;
+  text-shadow: 0 8px 34px rgb(237 69 69 / 15%);
+}
+.pix-presentation-screen > .pix-description {
+  max-width: 510px;
+  margin-top: 22px;
+  font-size: clamp(.96rem, 2vw, 1.04rem);
+  line-height: 1.8;
+}
+.pix-presentation-screen h2 {
+  margin: 34px 0 0;
+  color: var(--pix-text);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+.pix-presentation-screen .pix-presentation-pillars {
+  gap: 10px;
+  margin: 15px 0 0;
+}
+.pix-presentation-screen .pix-presentation-pillar {
+  display: flex;
+  min-height: 92px;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 13px;
+  border-color: #303036;
+  border-radius: 7px;
+  background: linear-gradient(155deg, rgb(255 255 255 / 3%), rgb(255 255 255 / 1%));
+  text-align: center;
+  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+.pix-presentation-screen .pix-presentation-pillar strong {
+  margin: 0;
+  font-size: .8rem;
+  line-height: 1.55;
+}
+.pix-presentation-screen .pix-presentation-pillar:hover {
+  transform: translateY(-2px);
+  border-color: rgb(237 69 69 / 45%);
+  background: rgb(237 69 69 / 3%);
+}
+.pix-presentation-screen .pix-presentation-closing {
+  max-width: 470px;
+  margin: 28px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--pix-border);
+  color: #e7e7eb;
+  font-size: .9rem;
+  font-weight: 600;
+  line-height: 1.65;
+}
+.pix-presentation-screen .pix-button {
+  min-width: 220px;
+  margin-top: 24px;
+}
+.pix-presentation-screen .pix-small {
+  margin-top: 13px;
+  color: #85858e;
+  font-size: .73rem;
+}
+@media (max-width: 600px) {
+  .pix-presentation-screen {
+    padding: 0 0 8px;
+  }
+  .pix-presentation-screen > .pix-eyebrow {
+    margin-bottom: 18px;
+    font-size: .65rem;
+  }
+  .pix-presentation-screen h1 {
+    font-size: clamp(2.9rem, 12vw, 4.2rem);
+  }
+  .pix-presentation-screen > .pix-description {
+    margin-top: 18px;
+    line-height: 1.7;
+  }
+  .pix-presentation-screen h2 {
+    margin-top: 28px;
+  }
+  .pix-presentation-screen .pix-presentation-pillars {
+    gap: 8px;
+    margin-top: 13px;
+  }
+  .pix-presentation-screen .pix-presentation-pillar {
+    min-height: 0;
+    justify-content: flex-start;
+    padding: 13px 15px;
+    border-left: 2px solid rgb(237 69 69 / 65%);
+    text-align: left;
+  }
+  .pix-presentation-screen .pix-presentation-pillar strong {
+    font-size: .78rem;
+  }
+  .pix-presentation-screen .pix-presentation-closing {
+    margin-top: 24px;
+    padding-top: 17px;
+  }
+  .pix-presentation-screen .pix-button {
+    width: min(100%, 320px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pix-presentation-screen .pix-presentation-pillar {
+    transition: none;
+  }
+}
