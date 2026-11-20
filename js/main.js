@@ -22,6 +22,7 @@
   const startButton = document.querySelector("[data-pix-start]");
   const restartButton = document.querySelector("[data-pix-restart]");
   const presentationButton = document.querySelector("[data-pix-presentation]");
+  const journeyButton = document.querySelector("[data-pix-journey]");
   const presentationProjectsButton = document.querySelector("[data-pix-presentation-projects]");
   const continueDonationButton = document.querySelector("[data-pix-continue-donation]");
   const copyButton = document.querySelector("[data-pix-copy]");
@@ -205,7 +206,7 @@
   function initialize() {
     const required = [
       ...Object.values(screens), startButton, restartButton, presentationButton, presentationProjectsButton,
-      continueDonationButton, copyButton, pixKeyDisplay, pixStatus,
+      continueDonationButton, journeyButton, copyButton, pixKeyDisplay, pixStatus,
       impactOverlay, experience, portfolio, processingMessage, processingPercent, processingStep, progressBar, progressFill
     ];
 
