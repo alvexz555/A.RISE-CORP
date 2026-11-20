@@ -22,9 +22,8 @@
   const startButton = document.querySelector("[data-pix-start]");
   const restartButton = document.querySelector("[data-pix-restart]");
   const presentationButton = document.querySelector("[data-pix-presentation]");
-  const donationButton = document.querySelector("[data-pix-donation]");
-  const journeyButton = document.querySelector("[data-pix-journey]");
-  const portfolioButton = document.querySelector("[data-pix-enter-portfolio]");
+  const presentationProjectsButton = document.querySelector("[data-pix-presentation-projects]");
+  const continueDonationButton = document.querySelector("[data-pix-continue-donation]");
   const copyButton = document.querySelector("[data-pix-copy]");
   const pixKeyDisplay = document.querySelector("[data-pix-key-display]");
   const pixStatus = document.querySelector("[data-pix-status]");
@@ -205,8 +204,8 @@
 
   function initialize() {
     const required = [
-      ...Object.values(screens), startButton, restartButton, presentationButton, donationButton,
-      journeyButton, portfolioButton, copyButton, pixKeyDisplay, pixStatus,
+      ...Object.values(screens), startButton, restartButton, presentationButton, presentationProjectsButton,
+      continueDonationButton, copyButton, pixKeyDisplay, pixStatus,
       impactOverlay, experience, portfolio, processingMessage, processingPercent, processingStep, progressBar, progressFill
     ];
 
@@ -228,9 +227,15 @@
     startButton.addEventListener("click", startExperience);
     restartButton.addEventListener("click", restartExperience);
     presentationButton.addEventListener("click", () => showScreen("presentation"));
-    donationButton.addEventListener("click", () => showScreen("donation"));
+    presentationProjectsButton.addEventListener("click", openPortfolio);
+    continueDonationButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (!experience || !portfolio) return;
+      portfolio.hidden = true;
+      experience.hidden = false;
+      showScreen("donation");
+    });
     journeyButton.addEventListener("click", () => showScreen("journey"));
-    portfolioButton.addEventListener("click", openPortfolio);
     copyButton.addEventListener("click", copyPixKey);
 
     showScreen("intro");
