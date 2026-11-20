@@ -19,6 +19,10 @@
     };
     const objects = { a: { ...initial.a }, b: { ...initial.b } };
     const keys = new Set();
+    let selectedObject = "a";
+    let activePointer = null;
+    let dragging = false;
+    let dragOffset = { x: 0, y: 0 };
     const keyMap = {
         KeyW: ["a", 0, -1], KeyS: ["a", 0, 1],
         KeyA: ["a", -1, 0], KeyD: ["a", 1, 0],
@@ -69,13 +73,13 @@
         ctx.strokeRect(.5, .5, WORLD.width - 1, WORLD.height - 1);
     }
 
-    function drawObject(object, color, label, colliding) {
+    function drawObject(object, color, label, colliding, selected) {
         ctx.save();
         ctx.translate(object.x, object.y);
         ctx.fillStyle = color + "22";
         ctx.strokeStyle = colliding ? "#ffffff" : color;
-        ctx.lineWidth = colliding ? 3 : 2;
-        ctx.setLineDash(colliding ? [] : [7, 5]);
+        ctx.lineWidth = selected ? 4 : (colliding ? 3 : 2);
+        ctx.setLineDash(selected || colliding ? [] : [7, 5]);
         if (object.shape === "circle") {
             ctx.beginPath(); ctx.arc(0, 0, object.radius, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
         } else {
@@ -83,6 +87,12 @@
             ctx.strokeRect(-object.width / 2, -object.height / 2, object.width, object.height);
         }
         ctx.setLineDash([]);
+        if (selected) {
+            ctx.setLineDash([3, 4]);
+            ctx.strokeStyle = "#ffffff";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.arc(0, 0, Math.max(object.width, object.radius * 2) / 2 + 10, 0, Math.PI * 2); ctx.stroke();
+        }
         ctx.fillStyle = color;
         ctx.beginPath(); ctx.arc(0, 0, 3.5, 0, Math.PI * 2); ctx.fill();
         ctx.font = "700 12px ui-sans-serif, system-ui";
@@ -96,14 +106,14 @@
         collisionTitle.textContent = colliding ? "COLISÃO DETECTADA" : "SEM COLISÃO";
         collisionDetail.textContent = colliding
             ? "As hitboxes dos objetos A e B estão se sobrepondo."
-            : "As hitboxes estão separadas. Continue movimentando os objetos.";
+            : `Objeto ${selectedObject.toUpperCase()} selecionado. Toque no outro objeto para selecioná-lo.`;
     }
 
     function render() {
         const colliding = isColliding(objects.a, objects.b);
         drawGrid();
-        drawObject(objects.a, COLORS.a, "OBJETO A", colliding);
-        drawObject(objects.b, COLORS.b, "OBJETO B", colliding);
+        drawObject(objects.a, COLORS.a, "OBJETO A", colliding, selectedObject === "a");
+        drawObject(objects.b, COLORS.b, "OBJETO B", colliding, selectedObject === "b");
         updateReadout(colliding);
     }
 
@@ -116,7 +126,9 @@
         shapeASelect.value = initial.a.shape;
         shapeBSelect.value = initial.b.shape;
         keys.clear();
-        document.querySelectorAll("[data-key]").forEach(button => button.classList.remove("is-pressed"));
+        selectedObject = "a";
+        dragging = false;
+        canvas.classList.remove("is-dragging");
         render();
     });
 
@@ -128,24 +140,61 @@
     window.addEventListener("blur", () => keys.clear());
     document.addEventListener("visibilitychange", () => { if (document.hidden) keys.clear(); });
 
-    document.querySelectorAll("[data-key]").forEach(button => {
-        const code = button.dataset.key;
-        const release = event => {
-            if (event) event.preventDefault();
-            keys.delete(code);
-            button.classList.remove("is-pressed");
+    function canvasPoint(event) {
+        const rect = canvas.getBoundingClientRect();
+        return {
+            x: (event.clientX - rect.left) * WORLD.width / rect.width,
+            y: (event.clientY - rect.top) * WORLD.height / rect.height
         };
-        button.addEventListener("pointerdown", event => {
-            event.preventDefault();
-            keys.add(code);
-            button.classList.add("is-pressed");
-            button.setPointerCapture(event.pointerId);
-        });
-        button.addEventListener("pointerup", release);
-        button.addEventListener("pointercancel", release);
-        button.addEventListener("lostpointercapture", release);
-        button.addEventListener("contextmenu", event => event.preventDefault());
+    }
+
+    function containsPoint(object, point) {
+        if (object.shape === "circle") {
+            return Math.hypot(point.x - object.x, point.y - object.y) <= object.radius + 10;
+        }
+        return Math.abs(point.x - object.x) <= object.width / 2 + 10 &&
+               Math.abs(point.y - object.y) <= object.height / 2 + 10;
+    }
+
+    canvas.addEventListener("pointerdown", event => {
+        if (activePointer !== null) return;
+        event.preventDefault();
+        const point = canvasPoint(event);
+        const hitA = containsPoint(objects.a, point);
+        const hitB = containsPoint(objects.b, point);
+        if (hitA || hitB) {
+            selectedObject = hitB && (!hitA || selectedObject === "a") ? "b" : "a";
+        }
+        const object = objects[selectedObject];
+        dragOffset.x = object.x - point.x;
+        dragOffset.y = object.y - point.y;
+        activePointer = event.pointerId;
+        dragging = true;
+        canvas.classList.add("is-dragging");
+        canvas.setPointerCapture(event.pointerId);
+        render();
     });
+
+    canvas.addEventListener("pointermove", event => {
+        if (!dragging || event.pointerId !== activePointer) return;
+        event.preventDefault();
+        const point = canvasPoint(event);
+        const object = objects[selectedObject];
+        object.x = point.x + dragOffset.x;
+        object.y = point.y + dragOffset.y;
+        clampObject(object);
+        render();
+    });
+
+    function stopDragging(event) {
+        if (activePointer === null || (event && event.pointerId !== activePointer)) return;
+        dragging = false;
+        activePointer = null;
+        canvas.classList.remove("is-dragging");
+    }
+    canvas.addEventListener("pointerup", stopDragging);
+    canvas.addEventListener("pointercancel", stopDragging);
+    canvas.addEventListener("lostpointercapture", stopDragging);
 
     let previousTime = 0;
     function frame(timestamp) {
