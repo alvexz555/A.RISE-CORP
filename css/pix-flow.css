@@ -891,3 +891,50 @@
 @media (prefers-reduced-motion: reduce) {
   .pix-presentation-project { transition: none; }
 }
+
+
+/* Alinhamento do convite ao Instagram na tela final da jornada */
+.pix-page [data-pix-screen="journey"] .instagram-link {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  width: min(100%, 440px);
+  min-height: 88px;
+  margin: 30px auto 0;
+  padding: 18px 20px;
+  text-align: left;
+}
+.pix-page [data-pix-screen="journey"] .instagram-copy {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  text-align: left;
+}
+.pix-page [data-pix-screen="journey"] .instagram-copy strong {
+  display: block;
+  color: var(--pix-text);
+  font-size: .9rem;
+  line-height: 1.35;
+}
+.pix-page [data-pix-screen="journey"] .instagram-copy small {
+  display: block;
+  color: var(--pix-muted);
+  font-size: .72rem;
+  line-height: 1.5;
+}
+.pix-page [data-pix-screen="journey"] .instagram-arrow {
+  flex: 0 0 auto;
+  align-self: center;
+}
+@media (max-width: 600px) {
+  .pix-page [data-pix-screen="journey"] .instagram-link {
+    gap: 12px;
+    padding: 15px 13px;
+  }
+  .pix-page [data-pix-screen="journey"] .instagram-copy strong { font-size: .8rem; }
+  .pix-page [data-pix-screen="journey"] .instagram-copy small { font-size: .68rem; }
+}
