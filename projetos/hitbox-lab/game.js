@@ -17,10 +17,7 @@
         a: { x: 245, y: 250, width: 92, height: 92, radius: 46, shape: "rect" },
         b: { x: 610, y: 250, width: 100, height: 100, radius: 50, shape: "circle" }
     };
-    const objects = {
-        a: { ...initial.a },
-        b: { ...initial.b }
-    };
+    const objects = { a: { ...initial.a }, b: { ...initial.b } };
     const keys = new Set();
     const keyMap = {
         KeyW: ["a", 0, -1], KeyS: ["a", 0, 1],
@@ -30,10 +27,8 @@
     };
 
     function clampObject(object) {
-        const halfW = object.width / 2;
-        const halfH = object.height / 2;
-        object.x = Math.max(halfW, Math.min(WORLD.width - halfW, object.x));
-        object.y = Math.max(halfH, Math.min(WORLD.height - halfH, object.y));
+        object.x = Math.max(object.width / 2, Math.min(WORLD.width - object.width / 2, object.x));
+        object.y = Math.max(object.height / 2, Math.min(WORLD.height - object.height / 2, object.y));
     }
 
     function rectRect(a, b) {
@@ -42,17 +37,14 @@
     }
 
     function circleCircle(a, b) {
-        const dx = a.x - b.x;
-        const dy = a.y - b.y;
-        const radius = a.radius + b.radius;
+        const dx = a.x - b.x, dy = a.y - b.y, radius = a.radius + b.radius;
         return dx * dx + dy * dy <= radius * radius;
     }
 
     function circleRect(circle, rect) {
         const nearestX = Math.max(rect.x - rect.width / 2, Math.min(circle.x, rect.x + rect.width / 2));
         const nearestY = Math.max(rect.y - rect.height / 2, Math.min(circle.y, rect.y + rect.height / 2));
-        const dx = circle.x - nearestX;
-        const dy = circle.y - nearestY;
+        const dx = circle.x - nearestX, dy = circle.y - nearestY;
         return dx * dx + dy * dy <= circle.radius * circle.radius;
     }
 
@@ -74,7 +66,7 @@
             ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(WORLD.width, y); ctx.stroke();
         }
         ctx.strokeStyle = "rgba(255,255,255,0.13)";
-        ctx.strokeRect(0.5, 0.5, WORLD.width - 1, WORLD.height - 1);
+        ctx.strokeRect(.5, .5, WORLD.width - 1, WORLD.height - 1);
     }
 
     function drawObject(object, color, label, colliding) {
@@ -84,17 +76,12 @@
         ctx.strokeStyle = colliding ? "#ffffff" : color;
         ctx.lineWidth = colliding ? 3 : 2;
         ctx.setLineDash(colliding ? [] : [7, 5]);
-
         if (object.shape === "circle") {
-            ctx.beginPath();
-            ctx.arc(0, 0, object.radius, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.stroke();
+            ctx.beginPath(); ctx.arc(0, 0, object.radius, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
         } else {
             ctx.fillRect(-object.width / 2, -object.height / 2, object.width, object.height);
             ctx.strokeRect(-object.width / 2, -object.height / 2, object.width, object.height);
         }
-
         ctx.setLineDash([]);
         ctx.fillStyle = color;
         ctx.beginPath(); ctx.arc(0, 0, 3.5, 0, Math.PI * 2); ctx.fill();
@@ -120,13 +107,8 @@
         updateReadout(colliding);
     }
 
-    function setShape(object, shape) {
-        object.shape = shape;
-        render();
-    }
-
-    shapeASelect.addEventListener("change", () => setShape(objects.a, shapeASelect.value));
-    shapeBSelect.addEventListener("change", () => setShape(objects.b, shapeBSelect.value));
+    shapeASelect.addEventListener("change", () => { objects.a.shape = shapeASelect.value; render(); });
+    shapeBSelect.addEventListener("change", () => { objects.b.shape = shapeBSelect.value; render(); });
 
     resetButton.addEventListener("click", () => {
         Object.assign(objects.a, initial.a);
@@ -134,47 +116,58 @@
         shapeASelect.value = initial.a.shape;
         shapeBSelect.value = initial.b.shape;
         keys.clear();
+        document.querySelectorAll("[data-key]").forEach(button => button.classList.remove("is-pressed"));
         render();
-        canvas.focus();
     });
 
-    window.addEventListener("keydown", (event) => {
+    window.addEventListener("keydown", event => {
         if (event.target instanceof HTMLInputElement || event.target instanceof HTMLSelectElement || event.target instanceof HTMLButtonElement) return;
-        if (keyMap[event.code]) {
-            event.preventDefault();
-            keys.add(event.code);
-        }
+        if (keyMap[event.code]) { event.preventDefault(); keys.add(event.code); }
     });
-
-    window.addEventListener("keyup", (event) => keys.delete(event.code));
+    window.addEventListener("keyup", event => keys.delete(event.code));
     window.addEventListener("blur", () => keys.clear());
-    document.addEventListener("visibilitychange", () => {
-        if (document.hidden) keys.clear();
+    document.addEventListener("visibilitychange", () => { if (document.hidden) keys.clear(); });
+
+    document.querySelectorAll("[data-key]").forEach(button => {
+        const code = button.dataset.key;
+        const release = event => {
+            if (event) event.preventDefault();
+            keys.delete(code);
+            button.classList.remove("is-pressed");
+        };
+        button.addEventListener("pointerdown", event => {
+            event.preventDefault();
+            keys.add(code);
+            button.classList.add("is-pressed");
+            button.setPointerCapture(event.pointerId);
+        });
+        button.addEventListener("pointerup", release);
+        button.addEventListener("pointercancel", release);
+        button.addEventListener("lostpointercapture", release);
+        button.addEventListener("contextmenu", event => event.preventDefault());
     });
 
     let previousTime = 0;
     function frame(timestamp) {
-        const delta = previousTime ? Math.min((timestamp - previousTime) / 1000, 0.05) : 0;
+        const delta = previousTime ? Math.min((timestamp - previousTime) / 1000, .05) : 0;
         previousTime = timestamp;
-
         const movement = { a: [0, 0], b: [0, 0] };
         for (const code of keys) {
             const control = keyMap[code];
-            if (!control) continue;
-            movement[control[0]][0] += control[1];
-            movement[control[0]][1] += control[2];
+            if (control) {
+                movement[control[0]][0] += control[1];
+                movement[control[0]][1] += control[2];
+            }
         }
-
         for (const id of ["a", "b"]) {
-            let [dx, dy] = movement[id];
-            if (dx !== 0 || dy !== 0) {
+            const [dx, dy] = movement[id];
+            if (dx || dy) {
                 const length = Math.hypot(dx, dy);
-                objects[id].x += (dx / length) * SPEED * delta;
-                objects[id].y += (dy / length) * SPEED * delta;
+                objects[id].x += dx / length * SPEED * delta;
+                objects[id].y += dy / length * SPEED * delta;
                 clampObject(objects[id]);
             }
         }
-
         render();
         requestAnimationFrame(frame);
     }
