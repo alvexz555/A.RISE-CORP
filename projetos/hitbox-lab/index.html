@@ -1,81 +1,129 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#09090b">
-    <title>HIT LAB | A.RISE</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="game.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#09090b">
+  <meta name="description" content="HIT LAB: experimente colisões 2D, entenda hitboxes e estude o JavaScript por trás das mecânicas.">
+  <title>HIT LAB | A.RISE</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="game.js" defer></script>
 </head>
 <body>
-    <header class="topbar">
-        <a class="brand" href="../../index.html" aria-label="A.RISE, voltar ao portfólio">A.RISE<span>/LAB</span></a>
-        <span class="version">MÓDULO 01 · COLLISION CORE</span>
-    </header>
+  <header class="topbar">
+    <a class="brand" href="../../index.html" aria-label="A.RISE, voltar ao portfólio">A.RISE<span>/LAB</span></a>
+    <nav class="top-nav" aria-label="Navegação principal">
+      <a href="#laboratorio">Laboratório</a>
+      <a href="#codigo">Código</a>
+      <a href="#aprenda">Aprenda</a>
+      <a href="#desafio">Desafio</a>
+    </nav>
+    <span class="version">INTERACTIVE LEARNING</span>
+  </header>
 
-    <main class="page">
-        <section class="intro">
-            <p class="eyebrow">LABORATÓRIO DE FÍSICA 2D</p>
-            <h1>HIT <span>LAB</span></h1>
-            <p class="description">Experimente formas, movimento e detecção de colisão em tempo real.</p>
-        </section>
+  <main class="page">
+    <section class="intro">
+      <p class="eyebrow">EXPERIMENTE · ENTENDA · PROGRAME</p>
+      <h1>HIT <span>LAB</span></h1>
+      <p class="description">Um laboratório interativo para descobrir como as colisões funcionam nos jogos 2D e aprender a programá-las.</p>
+      <div class="intro-tags"><span>COLLISION DETECTION</span><span>HITBOXES</span><span>JAVASCRIPT</span></div>
+    </section>
 
-        <section class="workspace" aria-labelledby="workspace-title">
-            <div class="workspace-heading">
-                <div>
-                    <p class="eyebrow">AMBIENTE DE SIMULAÇÃO</p>
-                    <h2 id="workspace-title">Área de testes</h2>
-                </div>
-                <button id="reset-button" class="reset-button" type="button">Reiniciar posições</button>
-            </div>
+    <section id="laboratorio" class="section-block" aria-labelledby="workspace-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">01 / EXPERIMENTAÇÃO</p><h2 id="workspace-title">Laboratório de colisões</h2></div>
+        <button id="reset-button" class="secondary-button" type="button">Reiniciar</button>
+      </div>
+      <p class="section-copy">Arraste os objetos, altere seus formatos e dimensões. A simulação atualiza a detecção de colisão em tempo real.</p>
 
-            <div class="canvas-wrap">
-                <canvas id="lab-canvas" width="900" height="500" tabindex="0"
-                    aria-label="Área de simulação 2D. Toque em um objeto para selecioná-lo e arraste para movê-lo. No computador, use WASD e as setas.">
-                    Seu navegador não oferece suporte ao elemento canvas.
-                </canvas>
-            </div>
+      <div class="workspace">
+        <div class="canvas-toolbar"><span><i class="legend-dot dot-a"></i> OBJETO A</span><span><i class="legend-dot dot-b"></i> OBJETO B</span><span class="toolbar-hint">Arraste para mover · WASD / Setas</span></div>
+        <div class="canvas-wrap">
+          <canvas id="lab-canvas" width="900" height="500" tabindex="0" aria-label="Simulação de colisão 2D. Arraste os objetos para testar a colisão. Use WASD para o objeto A e as setas para o objeto B.">Seu navegador não oferece suporte ao elemento canvas.</canvas>
+        </div>
+        <div class="readout" id="collision-readout" data-state="idle" aria-live="polite">
+          <span class="status-dot" aria-hidden="true"></span>
+          <div><strong id="collision-title">AGUARDANDO TESTE</strong><p id="collision-detail">Mova os objetos para observar a detecção.</p></div>
+        </div>
+      </div>
 
-            <div class="readout" id="collision-readout" data-state="idle" aria-live="polite">
-                <span class="status-dot" aria-hidden="true"></span>
-                <div>
-                    <strong id="collision-title">SEM COLISÃO</strong>
-                    <p id="collision-detail">Mova os objetos para testar a detecção.</p>
-                </div>
-            </div>
-        </section>
+      <div class="object-panel">
+        <article class="object-card">
+          <div class="object-title"><span class="object-marker marker-a"></span><h3>Objeto A</h3><kbd>W A S D</kbd></div>
+          <label for="shape-a">Formato da hitbox</label>
+          <select id="shape-a"><option value="rect">Retângulo</option><option value="circle">Círculo</option></select>
+          <label for="size-a" class="range-label"><span>Tamanho</span><output id="size-a-value">92 px</output></label>
+          <input id="size-a" type="range" min="40" max="180" value="92">
+          <p>Altere o formato e o tamanho da área usada para detectar contato.</p>
+        </article>
+        <article class="object-card">
+          <div class="object-title"><span class="object-marker marker-b"></span><h3>Objeto B</h3><kbd>↑ ← ↓ →</kbd></div>
+          <label for="shape-b">Formato da hitbox</label>
+          <select id="shape-b"><option value="circle">Círculo</option><option value="rect">Retângulo</option></select>
+          <label for="size-b" class="range-label"><span>Tamanho</span><output id="size-b-value">100 px</output></label>
+          <input id="size-b" type="range" min="40" max="180" value="100">
+          <p>Compare como formatos diferentes alteram o resultado da colisão.</p>
+        </article>
+      </div>
+      <div class="tip-line"><strong>Dica:</strong> quando as áreas se sobrepõem, o laboratório detecta a colisão. Experimente mudar o formato para comparar os algoritmos.</div>
+    </section>
 
-        <section class="object-panel" aria-label="Configuração dos objetos">
-            <article class="object-card object-a-card">
-                <div class="object-title"><span class="object-marker marker-a"></span><h3>Objeto A</h3><kbd>W A S D</kbd></div>
-                <label for="shape-a">Formato da hitbox</label>
-                <select id="shape-a">
-                    <option value="rect">Retângulo</option>
-                    <option value="circle">Círculo</option>
-                </select>
-                <p>Computador: W, A, S, D. Celular: toque no objeto para selecionar e arraste para mover.</p>
-            </article>
-            </article>
+    <section id="codigo" class="section-block" aria-labelledby="code-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">02 / POR TRÁS DA MECÂNICA</p><h2 id="code-title">Veja o código funcionar</h2></div>
+        <button id="copy-code" class="secondary-button" type="button">Copiar código</button>
+      </div>
+      <p class="section-copy">O código exibido acompanha os formatos escolhidos no laboratório. Selecione um algoritmo para entender como cada tipo de colisão é calculado.</p>
+      <div class="code-layout">
+        <div class="code-tabs" role="tablist" aria-label="Algoritmos de colisão">
+          <button class="code-tab is-active" type="button" data-code="rectRect" role="tab" aria-selected="true">Retângulo × Retângulo</button>
+          <button class="code-tab" type="button" data-code="circleCircle" role="tab" aria-selected="false">Círculo × Círculo</button>
+          <button class="code-tab" type="button" data-code="circleRect" role="tab" aria-selected="false">Círculo × Retângulo</button>
+        </div>
+        <div class="code-window">
+          <div class="code-window-bar"><span><i></i><i></i><i></i></span><small id="code-file-label">rect-rect.js</small><span class="live-label">ALGORITMO REAL</span></div>
+          <pre><code id="code-display"></code></pre>
+        </div>
+        <aside class="code-explanation">
+          <p class="eyebrow">COMO LER</p>
+          <h3 id="explanation-title">Retângulo × Retângulo</h3>
+          <p id="explanation-text">Comparamos a distância entre os centros dos objetos com a soma de suas metades. Se houver sobreposição nos dois eixos, existe colisão.</p>
+          <div class="concept-note"><strong>Observe:</strong> <span id="explanation-note">As propriedades x e y representam o centro do objeto. Largura e altura definem os limites da hitbox.</span></div>
+        </aside>
+      </div>
+    </section>
 
-            <article class="object-card object-b-card">
-                <div class="object-title"><span class="object-marker marker-b"></span><h3>Objeto B</h3><kbd>↑ ← ↓ →</kbd></div>
-                <label for="shape-b">Formato da hitbox</label>
-                <select id="shape-b">
-                    <option value="circle">Círculo</option>
-                    <option value="rect">Retângulo</option>
-                </select>
-                <p>Computador: setas. Celular: toque no objeto para selecionar e arraste para mover.</p>
-            </article>
-            </article>
-        </section>
+    <section id="aprenda" class="section-block" aria-labelledby="learn-title">
+      <div class="section-heading"><div><p class="eyebrow">03 / FUNDAMENTOS</p><h2 id="learn-title">Aprenda os conceitos</h2></div></div>
+      <p class="section-copy">Entenda o vocabulário e a lógica que aparecem por trás de sistemas de colisão em jogos.</p>
+      <div class="lesson-grid">
+        <article class="lesson-card"><span class="lesson-number">01</span><h3>Hitbox</h3><p>Área invisível usada para detectar quando um objeto toca ou alcança outro. Pode ser maior, menor ou diferente do desenho visual.</p><span class="lesson-tag">ÁREA DE DETECÇÃO</span></article>
+        <article class="lesson-card"><span class="lesson-number">02</span><h3>Hurtbox</h3><p>Área que representa a região vulnerável de um personagem. Em jogos de luta, por exemplo, ela pode receber o contato de uma hitbox de ataque.</p><span class="lesson-tag">ÁREA VULNERÁVEL</span></article>
+        <article class="lesson-card"><span class="lesson-number">03</span><h3>Detecção</h3><p>Processo matemático que verifica se duas áreas se sobrepõem. O resultado costuma ser verdadeiro ou falso e pode disparar uma ação no jogo.</p><span class="lesson-tag">COLLISION DETECTION</span></article>
+        <article class="lesson-card"><span class="lesson-number">04</span><h3>Resposta</h3><p>O que o jogo faz depois de detectar o contato: aplicar dano, bloquear movimento, empurrar objetos, destruir um item ou ativar um efeito.</p><span class="lesson-tag">COLLISION RESPONSE</span></article>
+      </div>
+      <div class="learning-example">
+        <div><p class="eyebrow">FLUXO BÁSICO</p><h3>Detectar não é o mesmo que responder.</h3><p>Primeiro o jogo verifica se houve colisão. Depois, sua lógica decide o que deve acontecer.</p></div>
+        <div class="flow-steps"><span>DOIS OBJETOS</span><b>→</b><span>DETECTAR</span><b>→</b><span>RESULTADO</span><b>→</b><span>AÇÃO DO JOGO</span></div>
+      </div>
+    </section>
 
-        <section class="help-panel">
-            <h2>Controles</h2>
-            <p>No celular, toque em um objeto para selecioná-lo. Depois, arraste o objeto ou qualquer ponto livre da área para movê-lo. O contorno indica qual objeto está selecionado. No computador, use WASD para o objeto A e as setas para o objeto B.</p>
-        </section>
-    </main>
+    <section id="desafio" class="section-block challenge-section" aria-labelledby="challenge-title">
+      <div class="section-heading"><div><p class="eyebrow">04 / COLOQUE EM PRÁTICA</p><h2 id="challenge-title">Desafio de colisão</h2></div><span class="difficulty">NÍVEL 01 · INICIANTE</span></div>
+      <div class="challenge-card">
+        <div><h3>Faça as hitboxes se encontrarem.</h3><p>O Objeto A e o Objeto B estão separados. Mova um deles até que as áreas se sobreponham. Depois, verifique o resultado.</p></div>
+        <div class="challenge-actions"><button id="challenge-check" class="primary-button" type="button">Verificar desafio</button><button id="challenge-reset" class="secondary-button" type="button">Recomeçar desafio</button></div>
+        <p id="challenge-feedback" class="challenge-feedback" aria-live="polite">Desafio aguardando. Use o laboratório acima para encontrar a solução.</p>
+      </div>
+    </section>
 
-    <footer><span>HIT LAB</span><span>UM EXPERIMENTO A.RISE</span></footer>
+    <section class="next-step">
+      <p class="eyebrow">CONHECIMENTO SE CONSTRÓI TESTANDO</p>
+      <h2>Agora você sabe<br>o que acontece <span>por trás.</span></h2>
+      <p>Continue experimentando, altere os parâmetros e use os exemplos como ponto de partida para seus próprios jogos.</p>
+    </section>
+  </main>
+
+  <footer><span>HIT LAB · A.RISE</span><span>EXPERIMENTE. ENTENDA. CONSTRUA.</span></footer>
 </body>
 </html>
