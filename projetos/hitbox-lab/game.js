@@ -189,24 +189,74 @@
     drawObject(objects.a, COLORS.a, "OBJETO A", colliding, selectedObject === "a");
     drawObject(objects.b, COLORS.b, "OBJETO B", colliding, selectedObject === "b");
     updateReadout(colliding);
+    updateLiveCode();
     if (challengeActive && colliding) {
       challengeFeedback.textContent = "Desafio concluído! Você criou uma sobreposição entre as duas hitboxes.";
       challengeFeedback.classList.add("success");
     }
   }
 
-  function setAlgorithm(key) {
-    const item = algorithms[key];
-    codeDisplay.textContent = item.code;
-    codeFileLabel.textContent = item.file;
+  let currentAlgorithmKey = "rectRect";
+  let lastCodeSnapshot = "";
+
+  function objectConfigCode(object, variableName) {
+    if (object.shape === "circle") {
+      return `const ${variableName} = {
+  x: ${Math.round(object.x)},
+  y: ${Math.round(object.y)},
+  radius: ${Number(object.radius.toFixed(1))}
+};`;
+    }
+    return `const ${variableName} = {
+  x: ${Math.round(object.x)},
+  y: ${Math.round(object.y)},
+  width: ${Number(object.width.toFixed(1))},
+  height: ${Number(object.height.toFixed(1))}
+};`;
+  }
+
+  function updateLiveCode() {
+    const item = algorithms[currentAlgorithmKey];
+    const snapshot = JSON.stringify({
+      key: currentAlgorithmKey,
+      a: objects.a,
+      b: objects.b,
+      colliding: isColliding(objects.a, objects.b)
+    });
+    if (snapshot === lastCodeSnapshot) return;
+    lastCodeSnapshot = snapshot;
+
+    const call = currentAlgorithmKey === "circleRect"
+      ? (objects.a.shape === "circle" ? "circleRect(objectA, objectB)" : "circleRect(objectB, objectA)")
+      : `${currentAlgorithmKey}(objectA, objectB)`;
+    const liveScript = [
+      "// CONFIGURAÇÃO ATUAL DAS HITBOXES",
+      objectConfigCode(objects.a, "objectA"),
+      "",
+      objectConfigCode(objects.b, "objectB"),
+      "",
+      "// ALGORITMO DE DETECÇÃO",
+      item.code,
+      "",
+      `const collisionDetected = ${call};`
+    ].join("\\n");
+
+    codeDisplay.textContent = liveScript;
+    codeFileLabel.textContent = item.file + " · AO VIVO";
     explanationTitle.textContent = item.title;
     explanationText.textContent = item.description;
     explanationNote.textContent = item.note;
+  }
+
+  function setAlgorithm(key) {
+    currentAlgorithmKey = key;
     document.querySelectorAll(".code-tab").forEach(button => {
       const active = button.dataset.code === key;
       button.classList.toggle("is-active", active);
       button.setAttribute("aria-selected", String(active));
     });
+    lastCodeSnapshot = "";
+    updateLiveCode();
   }
 
   function syncSizeControls() {
