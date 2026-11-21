@@ -202,14 +202,14 @@
   function objectConfigCode(object, variableName) {
     if (object.shape === "circle") {
       return `const ${variableName} = {
-  x: ${Math.round(object.x)},
-  y: ${Math.round(object.y)},
+  x: player.x, // posição atual do personagem
+  y: player.y,
   radius: ${Number(object.radius.toFixed(1))}
 };`;
     }
     return `const ${variableName} = {
-  x: ${Math.round(object.x)},
-  y: ${Math.round(object.y)},
+  x: player.x, // posição atual do personagem
+  y: player.y,
   width: ${Number(object.width.toFixed(1))},
   height: ${Number(object.height.toFixed(1))}
 };`;
@@ -219,9 +219,8 @@
     const item = algorithms[currentAlgorithmKey];
     const snapshot = JSON.stringify({
       key: currentAlgorithmKey,
-      a: objects.a,
-      b: objects.b,
-      colliding: isColliding(objects.a, objects.b)
+      a: { shape: objects.a.shape, width: objects.a.width, height: objects.a.height, radius: objects.a.radius },
+      b: { shape: objects.b.shape, width: objects.b.width, height: objects.b.height, radius: objects.b.radius }
     });
     if (snapshot === lastCodeSnapshot) return;
     lastCodeSnapshot = snapshot;
