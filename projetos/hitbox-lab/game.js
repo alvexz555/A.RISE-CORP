@@ -239,7 +239,7 @@
       item.code,
       "",
       `const collisionDetected = ${call};`
-    ].join("\\n");
+    ].join("\n");
 
     codeDisplay.textContent = liveScript;
     codeFileLabel.textContent = item.file + " · AO VIVO";
