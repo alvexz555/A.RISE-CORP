@@ -200,16 +200,17 @@
   let lastCodeSnapshot = "";
 
   function objectConfigCode(object, variableName) {
+    const source = variableName === "objectA" ? "playerA" : "playerB";
     if (object.shape === "circle") {
       return `const ${variableName} = {
-  x: player.x, // posição atual do personagem
-  y: player.y,
+  x: ${source}.x,
+  y: ${source}.y,
   radius: ${Number(object.radius.toFixed(1))}
 };`;
     }
     return `const ${variableName} = {
-  x: player.x, // posição atual do personagem
-  y: player.y,
+  x: ${source}.x,
+  y: ${source}.y,
   width: ${Number(object.width.toFixed(1))},
   height: ${Number(object.height.toFixed(1))}
 };`;
